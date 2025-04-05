@@ -27,13 +27,15 @@ const projects = [
   },
   {
     title: "Mosaic Grove",
-    description: "A community-driven platform for artists and art enthusiasts.",
+    description:
+      "A community-driven platform for sustainable agriculture and empowering communities in Ghana.",
     techStack: ["React", "Firebase", "Tailwind CSS"],
     githubLink: "https://github.com/GideonWill/Mosaic-Grove.git",
-    demoLink: "https://mosaicgrove-demo.com",
+    demoLink: "https://mosaicgrov.netlify.app/",
     image: "/images/mosaic.jpg",
     color: "bg-purple-50 dark:bg-purple-900/20",
     category: "Web Development",
+    hasLiveDemo: true,
   },
   {
     title: "Jopee Travel & Tours UI",
@@ -186,6 +188,17 @@ const ProjectCard = ({ project, index }) => {
                 <span>Code</span>
               </a>
             )}
+          {project.hasLiveDemo && (
+            <a
+              href={project.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 px-4 py-2 text-white rounded-md transition-colors bg-green-600 hover:bg-green-700 font-semibold"
+            >
+              <FaExternalLinkAlt size={14} />
+              <span>Live Demo</span>
+            </a>
+          )}
           {isUiDesign && (
             <a
               href={project.demoLink}
