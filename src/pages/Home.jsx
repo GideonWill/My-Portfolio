@@ -144,7 +144,7 @@ const Home = () => {
       {/* Hero Section with Parallax */}
       <section
         ref={heroRef}
-        className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+        className="relative flex items-center justify-center min-h-screen pt-16 pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
       >
         {/* Static pattern background instead of particles */}
         <LightPatternBackground />
@@ -163,9 +163,9 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="relative mt-20"
           >
-            <div className="w-72 h-72 mx-auto mb-12 relative">
+            <div className="w-80 h-80 mx-auto mb-12 relative">
               <div className="w-full h-full relative group">
                 <img
                   src="/profile.jpg"
