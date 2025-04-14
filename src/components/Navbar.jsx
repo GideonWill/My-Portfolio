@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -24,6 +24,10 @@ const Navbar = () => {
   const isResumePage = location.pathname === "/resume";
   const hasDarkHeroSection =
     isAboutPage || isProjectsPage || isContactPage || isResumePage;
+  
+  // Mobile menu swipe gesture
+  const [startX, setStartX] = useState(0);
+  const mobileMenuRef = useRef(null);
 
   // Initialize dark mode on first load
   useEffect(() => {
@@ -42,6 +46,19 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle resize for dynamic layout adjustments
+  useEffect(() => {
+    const handleResize = () => {
+      // Close mobile menu if screen width becomes larger than mobile breakpoint
+      if (window.innerWidth >= 768 && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen]);
+
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
@@ -51,6 +68,21 @@ const Navbar = () => {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
+    }
+  };
+  
+  // Handle mobile menu swipe
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diffX = startX - endX;
+    
+    // If swiped left with enough distance (more than 50px)
+    if (diffX > 50) {
+      setIsOpen(false);
     }
   };
 
@@ -66,7 +98,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe pl-safe pr-safe ${
         isScrolled
           ? "bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-lg"
           : hasDarkHeroSection
@@ -75,7 +107,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className="flex justify-between items-center h-16 md:h-20">
           <div className="flex items-center">
             <NavLink
               to="/"
@@ -84,19 +116,19 @@ const Navbar = () => {
               <img
                 src="/GWO.png"
                 alt="GWO Logo"
-                className="h-16 w-auto md:h-20 lg:h-24"
+                className="h-10 w-auto md:h-16 lg:h-20"
               />
             </NavLink>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.path}
                 className={({ isActive }) =>
-                  `relative px-3 py-2 font-medium ${
+                  `relative px-2 lg:px-3 py-2 text-fluid-base font-medium ${
                     hasDarkHeroSection && !isScrolled
                       ? "text-white hover:text-blue-300 dark:text-white dark:hover:text-blue-300 text-shadow"
                       : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -132,7 +164,7 @@ const Navbar = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/contact"
-                className={`ml-4 px-6 py-2.5 font-semibold text-sm leading-tight tracking-wide uppercase transition-all duration-300 inline-flex items-center justify-center ${
+                className={`ml-2 lg:ml-4 px-4 lg:px-6 py-2 lg:py-2.5 font-semibold text-sm leading-tight tracking-wide uppercase transition-all duration-300 inline-flex items-center justify-center ${
                   isContactPage && !isScrolled
                     ? "bg-blue-500 text-white shadow-lg hover:bg-blue-400"
                     : hasDarkHeroSection && !isScrolled
@@ -166,7 +198,7 @@ const Navbar = () => {
             <motion.div whileTap={{ scale: 0.95 }}>
               <Link
                 to="/contact"
-                className={`px-4 py-1.5 text-sm font-semibold uppercase leading-tight tracking-wide transition-all inline-flex items-center justify-center ${
+                className={`px-3 py-1.5 text-xs sm:text-sm font-semibold uppercase leading-tight tracking-wide transition-all inline-flex items-center justify-center ${
                   isContactPage && !isScrolled
                     ? "bg-blue-500 text-white hover:bg-blue-400"
                     : hasDarkHeroSection && !isScrolled
@@ -213,7 +245,15 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           className="md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-lg"
+          ref={mobileMenuRef}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
+          {/* Mobile swipe instruction */}
+          <div className="text-center py-2 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+            <p>Swipe left to close menu</p>
+          </div>
+          
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
               <NavLink
@@ -249,17 +289,9 @@ const Navbar = () => {
               onClick={toggleDarkMode}
               className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md"
             >
-              <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
+              <span>Toggle {darkMode ? "Light" : "Dark"} Mode</span>
               <span>{darkMode ? "🌞" : "🌙"}</span>
             </button>
-            {/* Mobile Let's Talk big button */}
-            <Link
-              to="/contact"
-              className="block mt-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold uppercase text-center py-3 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Let's Talk
-            </Link>
           </div>
         </motion.div>
       )}

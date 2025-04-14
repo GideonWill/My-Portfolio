@@ -42,19 +42,21 @@ const Home = () => {
 
   // Testimonial slider
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [startX, setStartX] = useState(0);
+  const testimonialRef = useRef(null);
   const testimonials = [
     {
-      name: "Jane Doe",
-      role: "Project Manager",
+      name: "Kojo Annan",
+      role: "Tech Entrepreneur",
       text: "Gideon delivered exceptional results for our UI redesign project. His attention to detail and creativity exceeded our expectations.",
     },
     {
-      name: "John Smith",
+      name: "Akosua Mensah",
       role: "Startup Founder",
       text: "Working with Gideon was a pleasure. He understood our vision and transformed it into a beautiful and functional design.",
     },
     {
-      name: "Sarah Johnson",
+      name: "Yaw Osei-Owusu",
       role: "Marketing Director",
       text: "Gideon's work on our web application significantly improved user engagement and conversion rates.",
     },
@@ -66,6 +68,29 @@ const Home = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [testimonials.length]);
+
+  // Handle touch swipe for testimonials
+  const handleTestimonialTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+  };
+
+  const handleTestimonialTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diffX = startX - endX;
+    
+    // If swipe is significant enough (more than 50px)
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // Swipe left - go to next testimonial
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      } else {
+        // Swipe right - go to previous testimonial
+        setCurrentTestimonial((prev) => 
+          prev === 0 ? testimonials.length - 1 : prev - 1
+        );
+      }
+    }
+  };
 
   useEffect(() => {
     let ticker = setInterval(() => {
@@ -144,7 +169,7 @@ const Home = () => {
       {/* Hero Section with Parallax */}
       <section
         ref={heroRef}
-        className="relative flex items-center justify-center min-h-screen pt-16 pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
       >
         {/* Static pattern background instead of particles */}
         <LightPatternBackground />
@@ -163,9 +188,9 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative mt-20"
+            className="relative mt-12 md:mt-20"
           >
-            <div className="w-80 h-80 mx-auto mb-12 relative">
+            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto mb-6 md:mb-12 relative">
               <div className="w-full h-full relative group">
                 <img
                   src="/profile.jpg"
@@ -187,7 +212,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 px-1"
           >
             Hi, I'm Gideon William Ogunu
           </motion.h1>
@@ -196,7 +221,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-3xl text-gray-600 dark:text-gray-300 mb-12 h-12"
+            className="text-lg sm:text-xl md:text-3xl text-gray-600 dark:text-gray-300 mb-8 md:mb-12 h-8 md:h-12"
           >
             <span className="text-blue-600 dark:text-blue-400">{text}</span>
             <span className="animate-blink">|</span>
@@ -206,7 +231,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center space-x-8 mb-16"
+            className="flex justify-center space-x-8 mb-8 md:mb-16"
           >
             <a
               href="https://github.com/GideonWill"
@@ -214,7 +239,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300"
             >
-              <FaGithub size={32} />
+              <FaGithub size={24} className="sm:text-2xl md:text-3xl" />
             </a>
             <a
               href="https://www.linkedin.com/in/gideon-ogunu-795b1224a"
@@ -222,7 +247,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300"
             >
-              <FaLinkedin size={32} />
+              <FaLinkedin size={24} className="sm:text-2xl md:text-3xl" />
             </a>
           </motion.div>
 
@@ -233,7 +258,7 @@ const Home = () => {
           >
             <Link
               to="/projects"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+              className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
             >
               View My Work
               <FaArrowRight className="ml-2" />
@@ -243,13 +268,13 @@ const Home = () => {
 
         {/* Simple static scroll indicator */}
         <div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 opacity-60 hover:opacity-90 transition-opacity duration-300 cursor-pointer"
+          className="absolute bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 opacity-60 hover:opacity-90 transition-opacity duration-300 cursor-pointer"
           onClick={() =>
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
           }
         >
           <div className="flex flex-col items-center">
-            <span className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+            <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-2">
               Scroll
             </span>
             <FaArrowRight className="text-gray-500 dark:text-gray-400 transform rotate-90" />
@@ -261,26 +286,26 @@ const Home = () => {
       <AnimatedWritingSection />
 
       {/* Featured Projects Showcase */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+      <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
               Featured{" "}
               <span className="text-blue-600 dark:text-blue-400">Projects</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
               Take a look at some of my recent work that showcases my skills and
               expertise
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {featuredProjects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -291,49 +316,23 @@ const Home = () => {
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 className="rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group relative"
               >
-                {/* Animated background gradient - no longer overlays the image */}
-                <motion.div
-                  className="absolute inset-0 z-0 opacity-0"
-                  animate={{
-                    background: [
-                      `linear-gradient(120deg, ${
-                        project.color.split(" ")[1]
-                      } 0%, ${project.color.split(" ")[3]} 100%)`,
-                      `linear-gradient(220deg, ${
-                        project.color.split(" ")[1]
-                      } 0%, ${project.color.split(" ")[3]} 100%)`,
-                      `linear-gradient(120deg, ${
-                        project.color.split(" ")[1]
-                      } 0%, ${project.color.split(" ")[3]} 100%)`,
-                    ],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                />
-                {/* Only bottom title bar for text visibility */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 transition-all duration-300"
-                  style={{
-                    height: "30%",
-                    bottom: 0,
-                    top: "auto",
-                  }}
-                ></div>
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-64 object-cover transition-all duration-500"
-                />
-                <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                  <h3 className="text-xl font-bold text-white mb-2 text-shadow drop-shadow-lg">
+                <div className="image-wrapper aspect-video">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-all duration-500"
+                  />
+                  {/* Bottom title gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 transition-all duration-300" style={{ height: "40%", bottom: 0, top: "auto" }}></div>
+                </div>
+                
+                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 z-20">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 text-shadow">
                     {project.title}
                   </h3>
                   <Link
                     to="/projects"
-                    className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-sm"
+                    className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
                   >
                     <span>View Project</span>
                     <motion.span
@@ -350,10 +349,10 @@ const Home = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 md:mt-12">
             <Link
               to="/projects"
-              className="inline-flex items-center px-5 py-2 border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all duration-300"
+              className="inline-flex items-center px-4 sm:px-5 py-2 border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all duration-300 text-sm sm:text-base"
             >
               View All Projects
               <FaArrowRight className="ml-2" />
@@ -363,24 +362,24 @@ const Home = () => {
       </section>
 
       {/* Skills Preview Section */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-10 md:py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 md:mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
               What I Do
             </h2>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
               I create beautiful and functional digital experiences
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8">
             {skills.map((skill, index) => (
               <motion.div
                 key={skill.name}
@@ -397,21 +396,12 @@ const Home = () => {
                 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg text-center cursor-pointer"
+                className="bg-white dark:bg-gray-700 p-4 md:p-6 rounded-lg shadow-md text-center flex flex-col items-center justify-center"
               >
-                <motion.span
-                  className="text-4xl mb-4 block"
-                  whileHover={{
-                    rotate: [0, -10, 10, -10, 10, 0],
-                    transition: {
-                      duration: 0.5,
-                      ease: "easeInOut",
-                    },
-                  }}
-                >
+                <div className="text-2xl md:text-4xl mb-2 md:mb-4">
                   {skill.icon}
-                </motion.span>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                </div>
+                <h3 className="text-sm md:text-base font-medium text-gray-800 dark:text-gray-100">
                   {skill.name}
                 </h3>
               </motion.div>
@@ -420,25 +410,39 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonial Section */}
-      <section className="py-20 bg-white dark:bg-gray-900 overflow-hidden">
+      {/* Testimonials Section */}
+      <section className="py-12 md:py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
               What People Say
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
               Feedback from clients and collaborators
             </p>
           </motion.div>
 
-          <div className="relative h-80 max-w-4xl mx-auto">
+          <div 
+            className="relative h-64 sm:h-72 md:h-80 max-w-4xl mx-auto"
+            ref={testimonialRef}
+            onTouchStart={handleTestimonialTouchStart}
+            onTouchEnd={handleTestimonialTouchEnd}
+          >
+            {/* Mobile swipe instruction - only shown on small screens */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="md:hidden text-center mb-4 text-xs text-gray-500 dark:text-gray-400 absolute -top-8 left-0 right-0"
+            >
+              <p>Swipe to see more testimonials</p>
+            </motion.div>
+            
             <AnimatePresence mode="wait">
               {testimonials.map(
                 (testimonial, index) =>
@@ -449,17 +453,17 @@ const Home = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -100 }}
                       transition={{ duration: 0.7, ease: "easeInOut" }}
-                      className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-xl"
+                      className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-xl"
                     >
-                      <FaQuoteLeft className="text-gray-300 dark:text-gray-600 text-4xl mb-6" />
-                      <p className="text-gray-700 dark:text-gray-300 text-lg md:text-xl italic mb-8">
+                      <FaQuoteLeft className="text-gray-300 dark:text-gray-600 text-2xl md:text-4xl mb-4 md:mb-6" />
+                      <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base md:text-lg italic mb-4 md:mb-8">
                         "{testimonial.text}"
                       </p>
                       <div>
-                        <h4 className="text-gray-900 dark:text-white font-bold">
+                        <h4 className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
                           {testimonial.name}
                         </h4>
-                        <p className="text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           {testimonial.role}
                         </p>
                       </div>
@@ -469,14 +473,14 @@ const Home = () => {
             </AnimatePresence>
 
             {/* Slider indicators */}
-            <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <div className="absolute -bottom-8 md:-bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-3">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
                     index === currentTestimonial
-                      ? "bg-blue-600 w-6"
+                      ? "bg-blue-600 w-4 md:w-6"
                       : "bg-gray-300 dark:bg-gray-600"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
