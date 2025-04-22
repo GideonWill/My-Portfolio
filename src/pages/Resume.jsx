@@ -144,7 +144,7 @@ const Resume = () => {
         "Implemented a real-time chat system for buyer-seller communication",
       ],
       link: "https://github.com/GideonWill/MosaicGrove",
-      liveDemo: "https://mosaicgrov.netlify.app/",
+      liveDemo: "https://mosaicgrove.netlify.app/",
     },
     {
       id: 4,

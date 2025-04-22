@@ -31,7 +31,7 @@ const projects = [
       "A community-driven platform for sustainable agriculture and empowering communities in Ghana.",
     techStack: ["React", "Firebase", "Tailwind CSS"],
     githubLink: "https://github.com/GideonWill/Mosaic-Grove.git",
-    demoLink: "https://mosaicgrov.netlify.app/",
+    demoLink: "https://mosaicgrove.netlify.app/",
     image: "/images/mosaic.jpg",
     color: "bg-purple-50 dark:bg-purple-900/20",
     category: "Web Development",
@@ -104,10 +104,11 @@ const projects = [
     description: "A food delivery and restaurant management platform.",
     techStack: ["React", "Node.js", "PostgreSQL"],
     githubLink: "https://github.com/GideonWill/rakofoods",
-    demoLink: "https://rakofoods-demo.com",
+    demoLink: "https://rakofoods.netlify.app/",
     image: "/images/rako.jpg",
     color: "bg-orange-50 dark:bg-orange-900/20",
     category: "Web Development",
+    hasLiveDemo: true,
   },
 ];
 
