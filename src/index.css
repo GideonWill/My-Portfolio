@@ -37,10 +37,9 @@
 
 html {
   box-sizing: border-box;
-  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
   overflow-x: hidden;
   max-width: 100vw;
-  overscroll-behavior-y: none;
 }
 
 *, *::before, *::after {
@@ -56,26 +55,12 @@ body {
   overflow-x: hidden;
   position: relative;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: none;
 }
 
 img {
   max-width: 100%;
   height: auto;
   -webkit-user-drag: none;
-  user-select: none;
-}
-
-/* Prevent content jumping on iOS scrolling */
-main {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Remove tap highlight on mobile devices */
-* {
-  -webkit-tap-highlight-color: transparent;
 }
 
 @layer components {
@@ -162,14 +147,12 @@ main {
   position: relative;
   width: 100%;
   overflow: hidden;
-  transform: translateZ(0);
 }
 
 .image-wrapper img {
   width: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-  will-change: transform;
 }
 
 /* Fix notch issues on mobile devices */
@@ -180,39 +163,13 @@ main {
   }
 }
 
-/* Mobile optimizations */
-@media (max-width: 768px) {
-  /* Fix scroll momentum issues */
-  html, body {
-    position: fixed;
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-  }
-  
-  main {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    transform: translateZ(0);
-  }
-  
-  /* Better mobile animations */
-  .touch-reduced-motion {
-    transition-duration: 100ms !important;
-  }
-  
-  /* Ensure touch targets are at least 44px */
-  .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-  }
+/* Orientation-specific styles */
+.landscape {
+  /* Adjust styles for landscape mode */
+}
+
+.portrait {
+  /* Adjust styles for portrait mode */
 }
 
 /* Add styles for mobile touch experience */
@@ -221,13 +178,15 @@ main {
     cursor: default;
     -webkit-tap-highlight-color: transparent;
   }
-}
-
-/* Orientation-specific styles */
-.landscape {
-  /* Adjust styles for landscape mode */
-}
-
-.portrait {
-  /* Adjust styles for portrait mode */
+  
+  /* Reduce motion for touch devices */
+  .touch-reduced-motion {
+    transition-duration: 150ms !important;
+  }
+  
+  /* Ensure touch targets are at least 44px */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
