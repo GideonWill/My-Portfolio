@@ -27,27 +27,22 @@ const useOrientationChange = () => {
         width,
         height
       });
-      
-      // Force repaint on iOS Safari when orientation changes
-      if ('visualViewport' in window) {
-        window.visualViewport.addEventListener('resize', () => {
-          document.body.style.display = 'none';
-          setTimeout(() => {
-            document.body.style.display = '';
-          }, 10);
-        });
-      }
     };
 
-    window.addEventListener('resize', handleResize);
+    // Debounced resize handler to prevent excessive updates
+    let resizeTimer;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleResize, 100);
+    };
+
+    window.addEventListener('resize', debouncedResize);
     window.addEventListener('orientationchange', handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', debouncedResize);
       window.removeEventListener('orientationchange', handleResize);
-      if ('visualViewport' in window) {
-        window.visualViewport.removeEventListener('resize', () => {});
-      }
+      clearTimeout(resizeTimer);
     };
   }, []);
 
@@ -68,11 +63,21 @@ function App() {
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
     
+    // Initial calculation
     setVhProperty();
-    window.addEventListener('resize', setVhProperty);
+    
+    // Debounced resize handler
+    let resizeTimer;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(setVhProperty, 100);
+    };
+    
+    window.addEventListener('resize', debouncedResize);
     
     return () => {
-      window.removeEventListener('resize', setVhProperty);
+      window.removeEventListener('resize', debouncedResize);
+      clearTimeout(resizeTimer);
     };
   }, [orientation.type]);
 

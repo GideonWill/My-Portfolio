@@ -38,11 +38,15 @@ const Navbar = () => {
     }
   }, []);
 
+  // Optimized scroll handler with throttling
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      window.requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 0);
+      });
     };
-    window.addEventListener("scroll", handleScroll);
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -55,8 +59,21 @@ const Navbar = () => {
       }
     };
     
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   const toggleDarkMode = () => {
@@ -98,7 +115,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe pl-safe pr-safe ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe pl-safe pr-safe will-change-transform ${
         isScrolled
           ? "bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-lg"
           : hasDarkHeroSection
@@ -238,13 +255,14 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Navigation Menu - Optimized */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-lg"
+          transition={{ duration: 0.2 }}
+          className="md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-lg will-change-transform"
           ref={mobileMenuRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}

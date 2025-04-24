@@ -37,10 +37,10 @@ const Home = () => {
   // Parallax effect refs
   const { scrollY } = useScroll();
   const heroRef = useRef(null);
-  const y1 = useTransform(scrollY, [0, 500], [0, -50]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0.2]);
+  const y1 = useTransform(scrollY, [0, 500], [0, -25]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0.5]);
 
-  // Testimonial slider
+  // Testimonial slider with optimized touch handling
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [startX, setStartX] = useState(0);
   const testimonialRef = useRef(null);
@@ -62,6 +62,7 @@ const Home = () => {
     },
   ];
 
+  // Debounced testimonial auto-advance
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -69,9 +70,11 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
-  // Handle touch swipe for testimonials
+  // Improved touch handling for testimonials
   const handleTestimonialTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
+    // Prevent default to avoid scroll interference
+    e.preventDefault();
   };
 
   const handleTestimonialTouchEnd = (e) => {
@@ -90,8 +93,12 @@ const Home = () => {
         );
       }
     }
+    
+    // Prevent default to avoid scroll interference
+    e.preventDefault();
   };
 
+  // Text animation effect
   useEffect(() => {
     let ticker = setInterval(() => {
       tick();
@@ -102,6 +109,7 @@ const Home = () => {
     };
   }, [text]);
 
+  // Scroll to top on initial load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -165,11 +173,11 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden">
+    <div className="min-h-screen will-change-transform">
       {/* Hero Section with Parallax */}
       <section
         ref={heroRef}
-        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden will-change-transform"
       >
         {/* Static pattern background instead of particles */}
         <LightPatternBackground />
@@ -177,7 +185,7 @@ const Home = () => {
         {/* Simplified Parallax Layer */}
         <motion.div
           style={{ y: y1, opacity }}
-          className="absolute top-0 left-0 w-full h-full z-0"
+          className="absolute top-0 left-0 w-full h-full z-0 will-change-transform"
         >
           <div className="absolute -top-20 -left-20 w-72 h-72 bg-blue-400 dark:bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
           <div className="absolute top-10 right-20 w-80 h-80 bg-purple-400 dark:bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
@@ -190,7 +198,7 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="relative mt-12 md:mt-20"
           >
-            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto mb-6 md:mb-12 relative">
+            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto mb-6 md:mb-12 relative will-change-transform">
               <div className="w-full h-full relative group">
                 <img
                   src="/profile.jpg"
@@ -199,6 +207,7 @@ const Home = () => {
                   style={{
                     objectPosition: "center 20%",
                   }}
+                  loading="eager"
                 />
                 <div className="absolute inset-0 rounded-full shadow-inner"></div>
               </div>
@@ -237,7 +246,7 @@ const Home = () => {
               href="https://github.com/GideonWill"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300 touch-target"
             >
               <FaGithub size={24} className="sm:text-2xl md:text-3xl" />
             </a>
@@ -245,7 +254,7 @@ const Home = () => {
               href="https://www.linkedin.com/in/gideon-ogunu-795b1224a"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300 touch-target"
             >
               <FaLinkedin size={24} className="sm:text-2xl md:text-3xl" />
             </a>
