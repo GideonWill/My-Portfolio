@@ -27,27 +27,18 @@ const useOrientationChange = () => {
         width,
         height
       });
-      
-      // Force repaint on iOS Safari when orientation changes
-      if ('visualViewport' in window) {
-        window.visualViewport.addEventListener('resize', () => {
-          document.body.style.display = 'none';
-          setTimeout(() => {
-            document.body.style.display = '';
-          }, 10);
-        });
-      }
     };
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
+    // Use more efficient event listeners with passive option
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('orientationchange', handleResize, { passive: true });
+
+    // Initial call
+    handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
-      if ('visualViewport' in window) {
-        window.visualViewport.removeEventListener('resize', () => {});
-      }
     };
   }, []);
 
@@ -62,17 +53,27 @@ function App() {
     document.body.classList.remove('landscape', 'portrait');
     document.body.classList.add(orientation.type);
     
-    // Fix iOS Safari viewport height issues
+    // Fix iOS Safari viewport height issues with debouncing
     const setVhProperty = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
     
+    // Initial set
     setVhProperty();
-    window.addEventListener('resize', setVhProperty);
+    
+    // Debounced resize handler
+    let resizeTimeout;
+    const handleResizeWithDebounce = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(setVhProperty, 100);
+    };
+    
+    window.addEventListener('resize', handleResizeWithDebounce, { passive: true });
     
     return () => {
-      window.removeEventListener('resize', setVhProperty);
+      window.removeEventListener('resize', handleResizeWithDebounce);
+      clearTimeout(resizeTimeout);
     };
   }, [orientation.type]);
 

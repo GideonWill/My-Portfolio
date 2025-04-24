@@ -43,6 +43,7 @@ const Home = () => {
   // Testimonial slider
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [startX, setStartX] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
   const testimonialRef = useRef(null);
   const testimonials = [
     {
@@ -63,23 +64,60 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
+    let testimonialInterval;
+    
+    // Only auto-rotate testimonials if not actively swiping
+    if (!isSwiping) {
+      testimonialInterval = setInterval(() => {
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      }, 5000);
+    }
+    
+    return () => {
+      if (testimonialInterval) clearInterval(testimonialInterval);
+    };
+  }, [testimonials.length, isSwiping]);
 
-  // Handle touch swipe for testimonials
+  // Handle touch swipe for testimonials with improved detection
   const handleTestimonialTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
+    setIsSwiping(true);
+    
+    // Pause auto-rotation when user starts interacting
+    const testimonialElement = testimonialRef.current;
+    if (testimonialElement) {
+      testimonialElement.style.transition = 'none';
+    }
+  };
+  
+  const handleTestimonialTouchMove = (e) => {
+    if (!testimonialRef.current || !isSwiping) return;
+    
+    const currentX = e.touches[0].clientX;
+    const diffX = startX - currentX;
+    
+    // If horizontal swipe is significant, prevent default to avoid page scrolling
+    if (Math.abs(diffX) > 10) {
+      e.preventDefault();
+    }
   };
 
   const handleTestimonialTouchEnd = (e) => {
+    setIsSwiping(false);
+    
+    // Restore transition
+    const testimonialElement = testimonialRef.current;
+    if (testimonialElement) {
+      testimonialElement.style.transition = 'transform 0.3s ease';
+    }
+    
     const endX = e.changedTouches[0].clientX;
     const diffX = startX - endX;
+    const screenWidth = window.innerWidth;
     
-    // If swipe is significant enough (more than 50px)
-    if (Math.abs(diffX) > 50) {
+    // Use percentage of screen width for better cross-device compatibility
+    // Swipe needs to be at least 10% of screen width to trigger change
+    if (Math.abs(diffX) > screenWidth * 0.1) {
       if (diffX > 0) {
         // Swipe left - go to next testimonial
         setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -429,9 +467,10 @@ const Home = () => {
           </motion.div>
 
           <div 
-            className="relative h-64 sm:h-72 md:h-80 max-w-4xl mx-auto"
+            className="relative h-64 sm:h-72 md:h-80 max-w-4xl mx-auto no-select optimize-mobile"
             ref={testimonialRef}
             onTouchStart={handleTestimonialTouchStart}
+            onTouchMove={handleTestimonialTouchMove}
             onTouchEnd={handleTestimonialTouchEnd}
           >
             {/* Mobile swipe instruction - only shown on small screens */}
@@ -453,7 +492,7 @@ const Home = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -100 }}
                       transition={{ duration: 0.7, ease: "easeInOut" }}
-                      className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-xl"
+                      className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-xl optimize-mobile"
                     >
                       <FaQuoteLeft className="text-gray-300 dark:text-gray-600 text-2xl md:text-4xl mb-4 md:mb-6" />
                       <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base md:text-lg italic mb-4 md:mb-8">
@@ -478,7 +517,7 @@ const Home = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
-                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 touch-target ${
                     index === currentTestimonial
                       ? "bg-blue-600 w-4 md:w-6"
                       : "bg-gray-300 dark:bg-gray-600"

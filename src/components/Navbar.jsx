@@ -42,12 +42,14 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle resize for dynamic layout adjustments
+  // Handle resize for dynamic layout adjustments with debounce
   useEffect(() => {
+    let resizeTimeout;
+    
     const handleResize = () => {
       // Close mobile menu if screen width becomes larger than mobile breakpoint
       if (window.innerWidth >= 768 && isOpen) {
@@ -55,8 +57,17 @@ const Navbar = () => {
       }
     };
     
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const debouncedHandleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleResize, 100);
+    };
+    
+    window.addEventListener('resize', debouncedHandleResize, { passive: true });
+    
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize);
+      clearTimeout(resizeTimeout);
+    };
   }, [isOpen]);
 
   const toggleDarkMode = () => {
@@ -71,7 +82,7 @@ const Navbar = () => {
     }
   };
   
-  // Handle mobile menu swipe
+  // Handle mobile menu swipe with improved detection
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
   };
@@ -79,10 +90,19 @@ const Navbar = () => {
   const handleTouchEnd = (e) => {
     const endX = e.changedTouches[0].clientX;
     const diffX = startX - endX;
+    const screenWidth = window.innerWidth;
     
-    // If swiped left with enough distance (more than 50px)
-    if (diffX > 50) {
+    // Use percentage of screen width for better cross-device compatibility
+    // If swiped left with enough distance (more than 15% of screen width)
+    if (diffX > screenWidth * 0.15) {
       setIsOpen(false);
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    // Prevent page scrolling when swiping the menu
+    if (isOpen) {
+      e.preventDefault();
     }
   };
 
@@ -248,6 +268,7 @@ const Navbar = () => {
           ref={mobileMenuRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
+          onTouchMove={handleTouchMove}
         >
           {/* Mobile swipe instruction */}
           <div className="text-center py-2 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
