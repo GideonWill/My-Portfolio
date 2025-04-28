@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Crown</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M16,4 L4,12 L7,24 L25,24 L28,12 L16,4 Z" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+        <circle cx="8" cy="14" r="2" fill="#B8860B"/>
+        <circle cx="16" cy="10" r="2" fill="#B8860B"/>
+        <circle cx="24" cy="14" r="2" fill="#B8860B"/>
+    </g>
+</svg> 
