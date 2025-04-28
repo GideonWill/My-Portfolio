@@ -13,6 +13,7 @@ const projects = [
     image: "/images/let'sbuy.jpg",
     color: "bg-blue-50 dark:bg-blue-900/20",
     category: "Web Development",
+    showPreview: false
   },
   {
     title: "Hop and Shop",
@@ -24,6 +25,7 @@ const projects = [
     image: "/images/hopandshop.jpg",
     color: "bg-red-50 dark:bg-red-900/20",
     category: "Web Development",
+    showPreview: false
   },
   {
     title: "Mosaic Grove",
@@ -107,6 +109,18 @@ const projects = [
     demoLink: "https://rakofoods.netlify.app/",
     image: "/images/rako.jpg",
     color: "bg-orange-50 dark:bg-orange-900/20",
+    category: "Web Development",
+    hasLiveDemo: true,
+  },
+  {
+    title: "Plex Travel & Cargo",
+    description:
+      "A comprehensive travel and cargo management system with booking capabilities and real-time tracking.",
+    techStack: ["React", "Node.js", "Tailwind CSS", "Express"],
+    githubLink: "https://github.com/GideonWill/Travel-and-Tour-.git",
+    demoLink: "https://plextravelandcargo.netlify.app/",
+    image: "/images/t6.jpg",
+    color: "bg-cyan-50 dark:bg-cyan-900/20",
     category: "Web Development",
     hasLiveDemo: true,
   },
@@ -200,7 +214,7 @@ const ProjectCard = ({ project, index }) => {
               <span>Live Demo</span>
             </a>
           )}
-          {!project.hasLiveDemo && (
+          {!project.hasLiveDemo && project.showPreview !== false && (
             <a
               href={project.demoLink}
               target="_blank"
