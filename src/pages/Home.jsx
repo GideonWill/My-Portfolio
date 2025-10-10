@@ -295,14 +295,14 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative mt-12 md:mt-20"
+            className="relative mt-16 sm:mt-20 md:mt-24"
           >
-            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto mb-6 md:mb-12 relative">
+            <div className="w-40 h-40 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 mx-auto mb-6 sm:mb-8 md:mb-12 relative">
               <div className="w-full h-full relative group">
                 <img
                   src="/profile.jpg"
                   alt="Gideon William Ogunu"
-                  className="w-full h-full rounded-full object-cover border-4 border-blue-600 dark:border-blue-400 shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
+                  className="w-full h-full rounded-full object-cover border-3 sm:border-4 border-blue-600 dark:border-blue-400 shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
                   style={{
                     objectPosition: "center 20%",
                   }}
@@ -311,7 +311,7 @@ const Home = () => {
               </div>
 
               {/* Simple pulsing border */}
-              <div className="absolute inset-0 border-4 border-blue-400 rounded-full opacity-0 animate-pulse group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 border-3 sm:border-4 border-blue-400 rounded-full opacity-0 animate-pulse group-hover:opacity-50 transition-opacity duration-300"></div>
             </div>
           </motion.div>
 
@@ -319,7 +319,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 px-1"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 px-2 leading-tight"
           >
             Hi, I'm Gideon William Ogunu
           </motion.h1>
@@ -328,7 +328,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl md:text-3xl text-gray-600 dark:text-gray-300 mb-8 md:mb-12 h-8 md:h-12"
+            className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 md:mb-12 h-6 xs:h-8 sm:h-10 md:h-12"
           >
             <span className="text-blue-600 dark:text-blue-400">{text}</span>
             <span className="animate-blink">|</span>
@@ -338,23 +338,25 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center space-x-8 mb-8 md:mb-16"
+            className="flex justify-center space-x-6 sm:space-x-8 mb-6 sm:mb-8 md:mb-16"
           >
             <a
               href="https://github.com/GideonWill"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300 touch-target p-2"
+              style={{ minHeight: "44px", minWidth: "44px" }}
             >
-              <FaGithub size={24} className="sm:text-2xl md:text-3xl" />
+              <FaGithub size={20} className="sm:text-2xl md:text-3xl" />
             </a>
             <a
               href="https://www.linkedin.com/in/gideon-ogunu-795b1224a"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300"
+              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-110 transition-all duration-300 touch-target p-2"
+              style={{ minHeight: "44px", minWidth: "44px" }}
             >
-              <FaLinkedin size={24} className="sm:text-2xl md:text-3xl" />
+              <FaLinkedin size={20} className="sm:text-2xl md:text-3xl" />
             </a>
           </motion.div>
 
@@ -365,10 +367,11 @@ const Home = () => {
           >
             <Link
               to="/projects"
-              className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+              className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base touch-target"
+              style={{ minHeight: "48px" }}
             >
               View My Work
-              <FaArrowRight className="ml-2" />
+              <FaArrowRight className="ml-2" size={16} />
             </Link>
           </motion.div>
         </div>
@@ -412,7 +415,7 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {featuredProjects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -734,7 +737,7 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
             {skills.map((skill, index) => (
               <motion.div
                 key={skill.name}
@@ -751,12 +754,13 @@ const Home = () => {
                 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-gray-700 p-4 md:p-6 rounded-lg shadow-md text-center flex flex-col items-center justify-center"
+                className="bg-white dark:bg-gray-700 p-3 sm:p-4 md:p-6 rounded-lg shadow-md text-center flex flex-col items-center justify-center touch-target"
+                style={{ minHeight: "80px" }}
               >
-                <div className="text-2xl md:text-4xl mb-2 md:mb-4">
+                <div className="text-xl sm:text-2xl md:text-4xl mb-2 md:mb-4">
                   {skill.icon}
                 </div>
-                <h3 className="text-sm md:text-base font-medium text-gray-800 dark:text-gray-100">
+                <h3 className="text-xs sm:text-sm md:text-base font-medium text-gray-800 dark:text-gray-100 leading-tight">
                   {skill.name}
                 </h3>
               </motion.div>

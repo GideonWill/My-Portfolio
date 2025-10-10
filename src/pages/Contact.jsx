@@ -153,7 +153,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-8 text-center"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 text-center leading-tight"
           >
             Let's Create
             <span className="text-blue-400"> Something Amazing</span>
@@ -162,7 +162,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto text-center"
+            className="text-base xs:text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto text-center leading-relaxed"
           >
             Transform your ideas into exceptional digital experiences. Whether
             you need a new website, a redesign, or a complete digital strategy,

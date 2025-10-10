@@ -213,19 +213,19 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Navigation Button */}
-          <div className="md:hidden flex items-center space-x-3">
+          <div className="md:hidden flex items-center space-x-2">
             {/* Mobile Let's Talk Button */}
             <motion.div whileTap={{ scale: 0.95 }}>
               <Link
                 to="/contact"
-                className={`px-3 py-1.5 text-xs sm:text-sm font-semibold uppercase leading-tight tracking-wide transition-all inline-flex items-center justify-center ${
+                className={`px-3 py-2 text-xs font-semibold uppercase leading-tight tracking-wide transition-all inline-flex items-center justify-center touch-target ${
                   isContactPage && !isScrolled
                     ? "bg-blue-500 text-white hover:bg-blue-400"
                     : hasDarkHeroSection && !isScrolled
                     ? "bg-blue-600 text-white hover:bg-blue-500"
                     : "bg-blue-600 text-white hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-500"
                 }`}
-                style={{ borderRadius: "0px" }}
+                style={{ borderRadius: "0px", minHeight: "44px" }}
               >
                 Let's Talk
               </Link>
@@ -233,15 +233,16 @@ const Navbar = () => {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded transition-colors ${
+              className={`p-3 rounded transition-colors touch-target ${
                 hasDarkHeroSection && !isScrolled
                   ? "bg-gray-800/40 text-white hover:bg-gray-800/60"
                   : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
               }`}
               aria-label="Toggle navigation menu"
+              style={{ minHeight: "44px", minWidth: "44px" }}
             >
               <svg
-                className="h-6 w-6"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -271,23 +272,24 @@ const Navbar = () => {
           onTouchMove={handleTouchMove}
         >
           {/* Mobile swipe instruction */}
-          <div className="text-center py-2 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+          <div className="text-center py-3 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
             <p>Swipe left to close menu</p>
           </div>
           
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="px-4 pt-4 pb-6 space-y-2">
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.path}
                 className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  `block px-4 py-3 rounded-lg text-base font-medium transition-colors touch-target ${
                     isActive
                       ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
                       : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`
                 }
                 onClick={() => setIsOpen(false)}
+                style={{ minHeight: "48px" }}
               >
                 {link.name}
               </NavLink>
@@ -296,22 +298,24 @@ const Navbar = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                `block px-4 py-3 rounded-lg text-base font-medium transition-colors touch-target ${
                   isActive
                     ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
                     : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
                 }`
               }
               onClick={() => setIsOpen(false)}
+              style={{ minHeight: "48px" }}
             >
               Contact
             </NavLink>
             <button
               onClick={toggleDarkMode}
-              className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md"
+              className="w-full flex items-center justify-between px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg touch-target"
+              style={{ minHeight: "48px" }}
             >
               <span>Toggle {darkMode ? "Light" : "Dark"} Mode</span>
-              <span>{darkMode ? "🌞" : "🌙"}</span>
+              <span className="text-lg">{darkMode ? "🌞" : "🌙"}</span>
             </button>
           </div>
         </motion.div>
