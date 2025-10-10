@@ -379,15 +379,15 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="flex flex-col"
+                className="flex flex-col text-center p-4 sm:p-6"
               >
-                <span className="text-5xl font-bold text-blue-600 dark:text-blue-500 mb-6">
+                <span className="text-4xl sm:text-5xl font-bold text-blue-600 dark:text-blue-500 mb-4 sm:mb-6">
                   {achievement.year}
                 </span>
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                   {achievement.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                   {achievement.description}
                 </p>
               </motion.div>

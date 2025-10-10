@@ -215,12 +215,12 @@ const Contact = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
             >
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="firstName"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   First Name*
                 </label>
@@ -231,13 +231,14 @@ const Contact = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                  className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base touch-target"
+                  style={{ minHeight: "48px" }}
                 />
               </motion.div>
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="lastName"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Last Name*
                 </label>
@@ -248,7 +249,8 @@ const Contact = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                  className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base touch-target"
+                  style={{ minHeight: "48px" }}
                 />
               </motion.div>
             </motion.div>
@@ -258,12 +260,12 @@ const Contact = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
             >
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="company"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Your Company
                 </label>
@@ -273,13 +275,14 @@ const Contact = () => {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                  className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base touch-target"
+                  style={{ minHeight: "48px" }}
                 />
               </motion.div>
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="website"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Existing Website URL
                 </label>
@@ -289,8 +292,9 @@ const Contact = () => {
                   name="website"
                   value={formData.website}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                  className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base touch-target"
                   placeholder="https://"
+                  style={{ minHeight: "48px" }}
                 />
               </motion.div>
             </motion.div>
@@ -300,12 +304,12 @@ const Contact = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
             >
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Email Address*
                 </label>
@@ -316,13 +320,14 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                  className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base touch-target"
+                  style={{ minHeight: "48px" }}
                 />
               </motion.div>
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Phone Number*
                 </label>
@@ -333,7 +338,8 @@ const Contact = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                  className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base touch-target"
+                  style={{ minHeight: "48px" }}
                 />
               </motion.div>
             </motion.div>
@@ -357,7 +363,7 @@ const Contact = () => {
               >
                 Select all that apply*
               </motion.p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 {[
                   { id: "discovery", icon: FaBriefcase, label: "Discovery" },
                   { id: "design", icon: FaPalette, label: "Website Design" },
@@ -371,12 +377,13 @@ const Contact = () => {
                     variants={itemVariants}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`flex items-center p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+                    className={`flex items-center p-3 sm:p-4 border rounded-lg cursor-pointer transition-all duration-200 touch-target ${
                       formData.services[service.id]
                         ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
                         : "border-gray-300 dark:border-gray-700"
                     }`}
                     onClick={() => handleServiceToggle(service.id)}
+                    style={{ minHeight: "48px" }}
                   >
                     <input
                       type="checkbox"
@@ -387,18 +394,18 @@ const Contact = () => {
                       className="hidden"
                     />
                     <service.icon
-                      className={`mr-3 ${
+                      className={`mr-3 text-lg ${
                         formData.services[service.id]
                           ? "text-blue-500"
                           : "text-gray-400"
                       }`}
                     />
                     <span
-                      className={
+                      className={`text-sm sm:text-base ${
                         formData.services[service.id]
                           ? "text-blue-700 dark:text-blue-300"
                           : "text-gray-700 dark:text-gray-300"
-                      }
+                      }`}
                     >
                       {service.label}
                     </span>
@@ -444,7 +451,8 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all"
+                className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white transition-all text-base resize-vertical"
+                style={{ minHeight: "120px" }}
               />
             </motion.div>
 
@@ -458,10 +466,11 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full bg-blue-600 text-white py-4 px-6 rounded-md text-lg font-semibold hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+                className="w-full bg-blue-600 text-white py-4 sm:py-5 px-6 rounded-md text-base sm:text-lg font-semibold hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 touch-target"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => console.log("Submit button clicked")}
+                style={{ minHeight: "56px" }}
               >
                 {status === "sending" ? (
                   <div className="flex items-center justify-center">

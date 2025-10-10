@@ -551,14 +551,14 @@ const ProjectCard = ({ project, index, onImageClick }) => {
       </div>
 
       <div
-        className={`relative overflow-hidden cursor-pointer border-2 border-yellow-400 dark:border-yellow-500 ${
+        className={`relative overflow-hidden cursor-pointer border-2 border-yellow-400 dark:border-yellow-500 touch-target ${
           isGraphicDesign 
-            ? "h-64 sm:h-72 md:h-80" 
+            ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80" 
             : isLogoDesign
-            ? "h-48 sm:h-56 md:h-64"
+            ? "h-40 xs:h-48 sm:h-56 md:h-64"
             : isUiDesign 
-            ? "h-56 sm:h-64 md:h-80" 
-            : "h-48 sm:h-56 md:h-64"
+            ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80" 
+            : "h-40 xs:h-48 sm:h-56 md:h-64"
         }`}
         onClick={() => onImageClick && onImageClick(project)}
       >
@@ -601,14 +601,14 @@ const ProjectCard = ({ project, index, onImageClick }) => {
         </div>
       </div>
 
-      <div className="p-4 sm:p-6">
-        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      <div className="p-3 sm:p-4 md:p-6">
+        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 leading-tight">
           {project.title}
         </h3>
-        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4">
+        <p className="text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300 mb-3 sm:mb-4 leading-relaxed">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+        <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
           {project.techStack.map((tech) => (
             <span
               key={tech}
@@ -618,7 +618,7 @@ const ProjectCard = ({ project, index, onImageClick }) => {
             </span>
           ))}
         </div>
-        <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
+        <div className="flex flex-wrap gap-2 sm:gap-3 mt-3 sm:mt-4 md:mt-6">
           {project.githubLink &&
             project.title !== "User Profile and Setting Screens UI" &&
             project.title !== "Smoothie App UI" &&
@@ -627,7 +627,8 @@ const ProjectCard = ({ project, index, onImageClick }) => {
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500"
+                className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target"
+                style={{ minHeight: "40px" }}
               >
                 <FaGithub size={14} />
                 <span>Code</span>
@@ -638,7 +639,8 @@ const ProjectCard = ({ project, index, onImageClick }) => {
               href={project.demoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-1.5 sm:py-2 text-white rounded-md transition-colors bg-green-600 hover:bg-green-700 font-semibold text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500"
+              className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-md transition-colors bg-green-600 hover:bg-green-700 font-semibold text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target"
+              style={{ minHeight: "40px" }}
             >
               <FaExternalLinkAlt size={12} />
               <span>Live Demo</span>
@@ -649,11 +651,12 @@ const ProjectCard = ({ project, index, onImageClick }) => {
               href={project.demoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-1.5 sm:py-2 text-white rounded-md transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 ${
+              className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-md transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target ${
                 isGraphicDesign 
                   ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600" 
                   : "bg-blue-600 hover:bg-blue-500"
               }`}
+              style={{ minHeight: "40px" }}
             >
               <FaExternalLinkAlt size={12} />
               <span>{isGraphicDesign ? "View Design" : "Preview"}</span>
@@ -799,7 +802,7 @@ const Projects = () => {
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {[
               { label: "Flyers Designed", value: "18+", color: "from-purple-400 to-pink-500" },
               { label: "Logos Created", value: "11+", color: "from-orange-400 to-red-500" },
@@ -812,12 +815,12 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-yellow-400 dark:border-yellow-500"
+                className="text-center p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-yellow-400 dark:border-yellow-500"
               >
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
-                  <span className="text-2xl font-bold text-white">{stat.value}</span>
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
+                  <span className="text-lg sm:text-2xl font-bold text-white">{stat.value}</span>
                 </div>
-                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300">{stat.label}</h3>
+                <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 leading-tight">{stat.label}</h3>
               </motion.div>
             ))}
           </div>
@@ -878,7 +881,7 @@ const Projects = () => {
               animate={{ opacity: 1 }}
               className="text-center py-16 col-span-full"
             >
-              <p className="text-base md:text-lg text-gray-600 dark:text-gray-400">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400">
                 No projects found in this category.
               </p>
             </motion.div>
@@ -932,12 +935,12 @@ const Projects = () => {
           </div>
 
           {/* Main Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {/* Main Image/Content Area */}
               <div className="lg:col-span-2">
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                  <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-8">
+                  <div className="aspect-[4/3] sm:aspect-[3/2] bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-4 sm:p-6 md:p-8">
                     <img
                       src={selectedProject.image}
                       alt={selectedProject.title}
@@ -951,47 +954,47 @@ const Projects = () => {
                 </div>
 
                 {/* Project Description */}
-                <div className="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="mt-4 sm:mt-6 md:mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     About This Project
                   </h2>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4 sm:mb-6">
                     {selectedProject.description}
                   </p>
                   
                   {/* Project Stats */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900 dark:text-white">1</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">Project</div>
+                      <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">1</div>
+                      <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Project</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                      <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                         {selectedProject.techStack.length}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">Technologies</div>
+                      <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Technologies</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900 dark:text-white">2024</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">Year</div>
+                      <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">2024</div>
+                      <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Year</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                      <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                         {selectedProject.category === "Graphic Design" ? "Design" : 
                          selectedProject.category === "Logo Design" ? "Branding" :
                          selectedProject.category === "UI Design" ? "Interface" : "Development"}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">Category</div>
+                      <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Category</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Sidebar */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Project Info */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     Project Details
                   </h3>
                   
