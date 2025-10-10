@@ -242,6 +242,50 @@ input, button, a, select, textarea {
   .xs\:h-8 {
     height: 2rem;
   }
+  
+  /* Extra small device optimizations */
+  .xs\:px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .xs\:py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .xs\:text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .xs\:text-xs {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small mobile devices (320px - 375px) */
+@media (max-width: 375px) {
+  .sm-mobile\:text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .sm-mobile\:text-3xl {
+    font-size: 1.875rem;
+  }
+  
+  .sm-mobile\:px-1 {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  
+  .sm-mobile\:py-1 {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  
+  .sm-mobile\:gap-2 {
+    gap: 0.5rem;
+  }
 }
 
 /* Mobile-specific improvements */
@@ -288,6 +332,35 @@ input, button, a, select, textarea {
     font-size: 16px;
     line-height: 1.5;
   }
+  
+  /* Fix mobile layout issues */
+  .mobile-container {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Improve mobile navigation */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+  
+  /* Better mobile cards */
+  .mobile-card {
+    margin: 0.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Mobile-friendly images */
+  .mobile-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }
 
 /* Reduce motion for users with reduced motion preference */
@@ -310,10 +383,12 @@ input, button, a, select, textarea {
 /* Orientation-specific styles */
 .landscape {
   /* Adjust styles for landscape mode */
+  overflow-x: hidden;
 }
 
 .portrait {
   /* Adjust styles for portrait mode */
+  overflow-x: hidden;
 }
 
 /* Graphic Design Showcase Styles */
@@ -461,5 +536,36 @@ img {
   /* Simplify gradients on mobile */
   .mobile-optimized-gradient {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  }
+  
+  /* Improve mobile scrolling */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  /* Optimize mobile animations */
+  .mobile-animation {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Better mobile text rendering */
+  .mobile-text-rendering {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Mobile-friendly focus states */
+  .mobile-focus:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* Prevent mobile zoom on double tap */
+  .mobile-no-zoom {
+    touch-action: manipulation;
   }
 }

@@ -145,15 +145,15 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative py-24 px-4 bg-gray-900 text-white">
+      <section className="relative py-16 sm:py-20 md:py-24 px-4 bg-gray-900 text-white mobile-container">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70 z-10"></div>
         <div className="absolute inset-0 bg-[url('/images/contact.jpg')] bg-cover bg-center opacity-40"></div>
-        <div className="max-w-7xl mx-auto relative z-20">
+        <div className="max-w-7xl mx-auto relative z-20 mobile-spacing">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 text-center leading-tight"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 md:mb-8 text-center leading-tight mobile-text-rendering"
           >
             Let's Create
             <span className="text-blue-400"> Something Amazing</span>
@@ -162,7 +162,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base xs:text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto text-center leading-relaxed"
+            className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto text-center leading-relaxed mobile-text-rendering"
           >
             Transform your ideas into exceptional digital experiences. Whether
             you need a new website, a redesign, or a complete digital strategy,
@@ -174,8 +174,8 @@ const Contact = () => {
       {/* Client Recognition Section - REMOVED */}
 
       {/* Contact Form Section */}
-      <section className="py-20 px-4 bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 px-4 bg-white dark:bg-gray-900 mobile-container">
+        <div className="max-w-4xl mx-auto mobile-spacing">
           <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

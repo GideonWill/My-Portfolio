@@ -678,7 +678,7 @@ const Resume = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 relative">
       {/* Hero Section */}
-      <section className="relative py-24 px-4 bg-gray-900 text-white">
+      <section className="relative py-16 sm:py-20 md:py-24 px-4 bg-gray-900 text-white mobile-container">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70 z-10"></div>
         <div className="absolute inset-0 bg-[url('/images/gid.jpg')] bg-cover bg-center opacity-30"></div>
         <div className="max-w-7xl mx-auto relative z-20">
@@ -689,7 +689,7 @@ const Resume = () => {
             className="text-center"
           >
             <motion.h1
-              className="text-5xl md:text-7xl font-bold mb-6"
+              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight mobile-text-rendering"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -697,7 +697,7 @@ const Resume = () => {
               My Resume
             </motion.h1>
             <motion.p
-              className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-2"
+              className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto mb-2 mobile-text-rendering"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -732,8 +732,8 @@ const Resume = () => {
       </section>
 
       {/* Resume Content Section */}
-      <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-8 sm:py-12 md:py-16 px-4 bg-gray-50 dark:bg-gray-900 mobile-container">
+        <div className="max-w-5xl mx-auto mobile-spacing">
           {/* Tabs Navigation */}
           <div className="flex overflow-x-auto pb-4 mb-8 scrollbar-hide space-x-2">
             {tabs.map((tab, index) => (

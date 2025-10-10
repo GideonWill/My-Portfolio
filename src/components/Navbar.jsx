@@ -118,7 +118,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe pl-safe pr-safe ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe pl-safe pr-safe mobile-nav ${
         isScrolled
           ? "bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-lg"
           : hasDarkHeroSection

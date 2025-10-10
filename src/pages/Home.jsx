@@ -276,7 +276,7 @@ const Home = () => {
       {/* Hero Section with Parallax */}
       <section
         ref={heroRef}
-        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden mobile-container"
       >
         {/* Static pattern background instead of particles */}
         <LightPatternBackground />
@@ -297,7 +297,7 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="relative mt-16 sm:mt-20 md:mt-24"
           >
-            <div className="w-40 h-40 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 mx-auto mb-6 sm:mb-8 md:mb-12 relative">
+            <div className="w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 mx-auto mb-4 sm:mb-6 md:mb-8 lg:mb-12 relative mobile-image">
               <div className="w-full h-full relative group">
                 <img
                   src="/profile.jpg"
@@ -319,7 +319,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 px-2 leading-tight"
+            className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 md:mb-6 px-2 leading-tight mobile-text-rendering"
           >
             Hi, I'm Gideon William Ogunu
           </motion.h1>
@@ -328,7 +328,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 md:mb-12 h-6 xs:h-8 sm:h-10 md:h-12"
+            className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 md:mb-8 lg:mb-12 h-6 xs:h-7 sm:h-8 md:h-10 lg:h-12 mobile-text-rendering"
           >
             <span className="text-blue-600 dark:text-blue-400">{text}</span>
             <span className="animate-blink">|</span>
@@ -338,7 +338,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center space-x-6 sm:space-x-8 mb-6 sm:mb-8 md:mb-16"
+            className="flex justify-center space-x-4 sm:space-x-6 md:space-x-8 mb-4 sm:mb-6 md:mb-8 lg:mb-16"
           >
             <a
               href="https://github.com/GideonWill"
@@ -367,8 +367,8 @@ const Home = () => {
           >
             <Link
               to="/projects"
-              className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base touch-target"
-              style={{ minHeight: "48px" }}
+              className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base touch-target mobile-focus"
+              style={{ minHeight: "44px" }}
             >
               View My Work
               <FaArrowRight className="ml-2" size={16} />
@@ -396,8 +396,8 @@ const Home = () => {
       <AnimatedWritingSection />
 
       {/* Featured Projects Showcase */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 sm:py-12 md:py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 mobile-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mobile-spacing">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -424,13 +424,13 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group relative"
+                className="rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 group relative mobile-card"
               >
                 <div className="image-wrapper aspect-video">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-all duration-500"
+                    className="w-full h-full object-cover transition-all duration-500 mobile-image"
                   />
                   {/* Bottom title gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 transition-all duration-300" style={{ height: "40%", bottom: 0, top: "auto" }}></div>
@@ -720,8 +720,8 @@ const Home = () => {
       </section>
 
       {/* Skills Preview Section */}
-      <section className="py-10 md:py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 sm:py-10 md:py-16 bg-gray-50 dark:bg-gray-800 mobile-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mobile-spacing">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -770,8 +770,8 @@ const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-12 md:py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 sm:py-12 md:py-20 bg-white dark:bg-gray-900 mobile-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mobile-spacing">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

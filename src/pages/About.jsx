@@ -80,7 +80,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Hero Section with Mission Statement */}
-      <section className="relative h-screen flex items-center justify-center">
+      <section className="relative h-screen flex items-center justify-center mobile-container">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70 z-10"></div>
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -91,7 +91,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
           >
             Designing the Future
           </motion.h1>
@@ -99,7 +99,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base xs:text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed"
+            className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed mobile-text-rendering"
           >
             Crafting digital experiences that inspire and transform the way
             people interact with technology.
@@ -108,8 +108,8 @@ const About = () => {
       </section>
 
       {/* Key Metrics Section (inspired by SPINX) */}
-      <section className="py-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-8 sm:py-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 mobile-container">
+        <div className="max-w-7xl mx-auto px-4 mobile-spacing">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {metrics.map((metric, index) => (
               <motion.div
@@ -120,7 +120,7 @@ const About = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center p-4 sm:p-6"
               >
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2 mobile-text-rendering">
                   {metric.value}
                 </div>
                 <div className="text-gray-600 dark:text-gray-400 text-sm sm:text-base md:text-lg">
@@ -133,8 +133,8 @@ const About = () => {
       </section>
 
       {/* Vision Statement */}
-      <section className="py-24 px-4 bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-16 sm:py-20 md:py-24 px-4 bg-white dark:bg-gray-900 mobile-container">
+        <div className="max-w-4xl mx-auto text-center mobile-spacing">
           <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

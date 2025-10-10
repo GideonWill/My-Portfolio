@@ -753,7 +753,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <div className="relative bg-black h-64 sm:h-80 md:h-96 flex items-center justify-center overflow-hidden pt-safe">
+      <div className="relative bg-black h-64 sm:h-80 md:h-96 flex items-center justify-center overflow-hidden pt-safe mobile-container">
         <div className="absolute inset-0 z-0">
           <img
             src="/images/project-hero.jpg"
@@ -767,7 +767,7 @@ const Projects = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+            className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
           >
             My Projects
           </motion.h1>
@@ -775,7 +775,7 @@ const Projects = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-sm xs:text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mobile-text-rendering"
           >
             A showcase of my work across web development and UI/UX design. Browse
             through the projects to see my technical skills and creative
@@ -785,8 +785,8 @@ const Projects = () => {
       </div>
 
       {/* Statistics Section */}
-      <div className="py-8 sm:py-12 bg-gradient-to-r from-pink-50 via-purple-50 to-indigo-50 dark:from-pink-900/20 dark:via-purple-900/20 dark:to-indigo-900/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-8 sm:py-12 bg-gradient-to-r from-pink-50 via-purple-50 to-indigo-50 dark:from-pink-900/20 dark:via-purple-900/20 dark:to-indigo-900/20 mobile-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mobile-spacing">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

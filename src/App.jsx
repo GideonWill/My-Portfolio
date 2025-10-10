@@ -79,9 +79,9 @@ function App() {
 
   return (
     <Router>
-      <div className={`min-h-screen bg-gray-50 dark:bg-gray-900 ${orientation.type}`}>
+      <div className={`min-h-screen bg-gray-50 dark:bg-gray-900 mobile-scroll mobile-text-rendering ${orientation.type}`}>
         <Navbar />
-        <main>
+        <main className="mobile-no-zoom">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
