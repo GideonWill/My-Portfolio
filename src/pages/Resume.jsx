@@ -21,7 +21,7 @@ const Resume = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("summary");
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -45,7 +45,6 @@ const Resume = () => {
   };
 
   const tabs = [
-    { id: "all", label: "All" },
     { id: "summary", label: "Summary" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
@@ -170,37 +169,7 @@ const Resume = () => {
     },
   ];
 
-  // Linux/Unix projects
-  const linuxProjects = [
-    {
-      id: 1,
-      title: "Server Setup & Deployment",
-      description:
-        "Configured and deployed a React-based web application on a Linux server using Nginx as a reverse proxy. Managed server security and performance optimizations.",
-    },
-    {
-      id: 2,
-      title: "Shell Scripting for Automation",
-      description:
-        "Developed Bash scripts to automate system updates, backups, and log management on a Unix-based system.",
-    },
-  ];
-
-  // Open Source Contributions
-  const openSourceContributions = [
-    {
-      id: 1,
-      title: "React UI Component Library Contribution",
-      description:
-        "Contributed improvements and bug fixes to an open-source React UI framework, focusing on accessibility and UI responsiveness.",
-    },
-    {
-      id: 2,
-      title: "Documentation & Code Contributions",
-      description:
-        "Provided code fixes and improved documentation for an open-source TypeScript-based project, enhancing developer experience.",
-    },
-  ];
+  // Removed Linux/Unix projects and Open Source Contributions sections
 
   // Skills data
   const skills = {
@@ -260,14 +229,14 @@ const Resume = () => {
   // Filter content based on active tab
   const renderContent = () => {
     // Summary Section
-    if (activeTab === "all" || activeTab === "summary") {
+    if (activeTab === "summary") {
       return (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className={`${
-            activeTab !== "summary" && activeTab !== "all" ? "hidden" : ""
+            activeTab !== "summary" ? "hidden" : ""
           }`}
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
@@ -284,16 +253,14 @@ const Resume = () => {
     }
 
     // Experience Section
-    if (activeTab === "all" || activeTab === "experience") {
+    if (activeTab === "experience") {
       return (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className={`${
-            activeTab !== "experience" && activeTab !== "all"
-              ? "hidden"
-              : "mt-12"
+            activeTab !== "experience" ? "hidden" : "mt-12"
           }`}
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
@@ -353,14 +320,14 @@ const Resume = () => {
     }
 
     // Project Section
-    if (activeTab === "all" || activeTab === "projects") {
+    if (activeTab === "projects") {
       return (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className={`${
-            activeTab !== "projects" && activeTab !== "all" ? "hidden" : "mt-12"
+            activeTab !== "projects" ? "hidden" : "mt-12"
           }`}
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
@@ -447,74 +414,20 @@ const Resume = () => {
             ))}
           </div>
 
-          {/* Linux/Unix Projects */}
-          <div className="mt-8">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-              <FaServer className="mr-2 text-blue-600 dark:text-blue-400" />
-              Linux/Unix Projects
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {linuxProjects.map((project) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border-l-4 border-amber-500 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group"
-                >
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                    {project.title}
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    {project.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Open Source Contributions */}
-          <div className="mt-8">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-              <FaGithub className="mr-2 text-blue-600 dark:text-blue-400" />
-              Open Source Contributions
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {openSourceContributions.map((contribution) => (
-                <motion.div
-                  key={contribution.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group"
-                >
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                    {contribution.title}
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    {contribution.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+          {/* Removed Linux/Unix Projects and Open Source Contributions */}
         </motion.div>
       );
     }
 
     // Skills Section
-    if (activeTab === "all" || activeTab === "skills") {
+    if (activeTab === "skills") {
       return (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className={`${
-            activeTab !== "skills" && activeTab !== "all" ? "hidden" : "mt-12"
+            activeTab !== "skills" ? "hidden" : "mt-12"
           }`}
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
@@ -677,16 +590,14 @@ const Resume = () => {
     }
 
     // Education and Certificates
-    if (activeTab === "all" || activeTab === "education") {
+    if (activeTab === "education") {
       return (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className={`${
-            activeTab !== "education" && activeTab !== "all"
-              ? "hidden"
-              : "mt-12"
+            activeTab !== "education" ? "hidden" : "mt-12"
           }`}
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">

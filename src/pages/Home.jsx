@@ -11,6 +11,9 @@ import {
   FaLinkedin,
   FaArrowRight,
   FaQuoteLeft,
+  FaEye,
+  FaTimes,
+  FaExpand,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -33,6 +36,8 @@ const Home = () => {
   const [index, setIndex] = useState(1);
   const toRotate = ["UI/UX Designer", "Frontend Developer"];
   const period = 2000;
+  const [selectedFlyer, setSelectedFlyer] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Parallax effect refs
   const { scrollY } = useScroll();
@@ -173,11 +178,61 @@ const Home = () => {
 
   const skills = [
     { name: "UI/UX Design", icon: "🎨" },
+    { name: "Graphic Design", icon: "🖼️" },
+    { name: "Logo Design", icon: "✨" },
     { name: "React", icon: "⚛️" },
     { name: "JavaScript", icon: "📜" },
     { name: "PHP", icon: "🐘" },
     { name: "C#", icon: "🔵" },
     { name: "Node.js", icon: "🟢" },
+  ];
+
+  // Featured flyer designs
+  const featuredFlyers = [
+    {
+      id: 1,
+      title: "Luminous Sanitation Company",
+      description: "Professional cleaning services flyer with modern design",
+      thumbnail: "/images/Luminous Sanitation Services.jpg",
+      fullImage: "/images/Luminous Sanitation Services.jpg",
+      category: "Corporate Flyer",
+      client: "Luminous Sanitation Company Ltd",
+      services: ["Post construction cleaning", "Commercial & office cleaning", "Residential cleaning", "Carpet cleaning"],
+      colors: ["#1e40af", "#3b82f6", "#ffffff"]
+    },
+    {
+      id: 2,
+      title: "LUXE.NYC Shopper",
+      description: "Personal shopping service flyer with luxury aesthetic",
+      thumbnail: "/images/Luxe NYC Fashion Flyer.jpg",
+      fullImage: "/images/Luxe NYC Fashion Flyer.jpg",
+      category: "Service Flyer",
+      client: "LUXE.NYC",
+      services: ["Personal shopping", "Designer brands", "Fashion accessories", "24/7 service"],
+      colors: ["#1e40af", "#f97316", "#ffffff"]
+    },
+    {
+      id: 3,
+      title: "GoldBites Cakes",
+      description: "Fresh juice, cakes & pastries promotional flyer",
+      thumbnail: "/images/Goldbites Cakes Flyer.jpg",
+      fullImage: "/images/Goldbites Cakes Flyer.jpg",
+      category: "Food Flyer",
+      client: "GoldBites Cakes",
+      services: ["Wedding cakes", "Birthday cakes", "Cupcakes", "Doughnuts", "Pastries", "Fresh juice"],
+      colors: ["#92400e", "#fbbf24", "#ffffff"]
+    },
+    {
+      id: 4,
+      title: "Hair Haven by Jaity",
+      description: "Hair services and wig collection flyer",
+      thumbnail: "/images/Hair Haven Salon Flyer.jpg",
+      fullImage: "/images/Hair Haven Salon Flyer.jpg",
+      category: "Beauty Flyer",
+      client: "Hair Haven by Jaity",
+      services: ["Wig services", "Hair extensions", "Deep wave", "Body wave", "Frontal & Closures"],
+      colors: ["#ec4899", "#8b5cf6", "#ffffff"]
+    }
   ];
 
   // Featured projects
@@ -201,6 +256,20 @@ const Home = () => {
       color: "from-yellow-500 to-orange-500",
     },
   ];
+
+  // Modal viewer functions
+  const openModal = (flyer) => {
+    setSelectedFlyer(flyer);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setSelectedFlyer(null);
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
 
   return (
     <div className="min-h-screen overflow-hidden">
@@ -399,6 +468,254 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Graphic Design Showcase */}
+      <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-8 md:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
+              Creative{" "}
+              <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Design Works
+              </span>
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
+              Explore my graphic design portfolio featuring logos, flyers, banners, and more creative solutions
+            </p>
+          </motion.div>
+
+
+          {/* Featured Design Works Carousel */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">
+              Featured Design Works
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {[
+                {
+                  title: "Event Banner",
+                  image: "/images/Rossy Graduation Flyer.jpg",
+                  type: "Banner Design"
+                },
+                {
+                  title: "Business Letterhead",
+                  image: "/images/Letterhead Luminous.jpg",
+                  type: "Corporate Design"
+                },
+                {
+                  title: "Marketing Collateral",
+                  image: "/images/Luminuos Complementary Card.jpg",
+                  type: "Print Design"
+                },
+                {
+                  title: "Logo Design",
+                  image: "/images/Novera.jpg",
+                  type: "Logo Design"
+                }
+              ].map((work, index) => (
+                <motion.div
+                  key={work.title}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                  className="group relative overflow-hidden rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
+                >
+                  <div className="aspect-square relative overflow-hidden">
+                    <img
+                      src={work.image}
+                      alt={work.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Hover content */}
+                    <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <h4 className="text-white font-bold text-sm mb-1">
+                        {work.title}
+                      </h4>
+                      <p className="text-gray-200 text-xs">
+                        {work.type}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <div className="text-center mt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                to="/projects"
+                className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <span className="relative z-10">View All Design Works</span>
+                <motion.div
+                  className="ml-3 relative z-10"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <FaArrowRight />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Flyer Gallery */}
+      <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-8 md:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
+              Featured{" "}
+              <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Flyer Designs
+              </span>
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
+              Hover over the designs to view crystal clear details of my professional flyer work
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+            {featuredFlyers.map((flyer, index) => (
+              <motion.div
+                key={flyer.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
+                className="group relative overflow-hidden rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+              >
+                <div className="aspect-[3/4] relative overflow-hidden bg-white dark:bg-gray-800">
+                  <img
+                    src={flyer.thumbnail}
+                    alt={flyer.title}
+                    className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      e.target.src = '/images/front book cover.jpg';
+                      e.target.alt = 'Flyer design placeholder';
+                    }}
+                  />
+                  
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-6">
+                    <div className="text-white">
+                      <h3 className="text-lg sm:text-xl font-bold mb-2 text-shadow">
+                        {flyer.title}
+                      </h3>
+                      <p className="text-sm text-gray-200 mb-3">
+                        {flyer.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        <span className="px-2 py-1 bg-pink-500 text-white text-xs font-medium rounded-full">
+                          {flyer.category}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => openModal(flyer)}
+                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105"
+                      >
+                        <FaEye className="mr-2" size={14} />
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Color palette indicator */}
+                  <div className="absolute top-4 right-4 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {flyer.colors.map((color, colorIndex) => (
+                      <div
+                        key={colorIndex}
+                        className="w-4 h-4 rounded-full border-2 border-white shadow-lg"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card content */}
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {flyer.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                    {flyer.client}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {flyer.category}
+                    </span>
+                    <button
+                      onClick={() => openModal(flyer)}
+                      className="text-pink-500 hover:text-pink-600 transition-colors duration-200"
+                    >
+                      <FaExpand size={16} />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                to="/projects"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <span className="relative z-10">View All Flyer Designs</span>
+                <motion.div
+                  className="ml-3 relative z-10"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <FaArrowRight />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Skills Preview Section */}
       <section className="py-10 md:py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -529,6 +846,136 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Action Button removed per request */}
+
+      {/* Modal Viewer */}
+      <AnimatePresence>
+        {isModalOpen && selectedFlyer && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl max-h-[90vh] w-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                    {selectedFlyer.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    {selectedFlyer.client} • {selectedFlyer.category}
+                  </p>
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200"
+                >
+                  <FaTimes size={20} />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="flex flex-col lg:flex-row max-h-[calc(90vh-80px)]">
+                {/* Image Section */}
+                <div className="flex-1 p-4 sm:p-6">
+                  <div className="relative rounded-xl overflow-hidden shadow-lg">
+                    <img
+                      src={selectedFlyer.fullImage}
+                      alt={selectedFlyer.title}
+                      className="w-full h-auto max-h-[60vh] object-contain bg-gray-100 dark:bg-gray-700"
+                      onError={(e) => {
+                        e.target.src = '/images/front book cover.jpg';
+                        e.target.alt = 'Flyer design placeholder';
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Details Section */}
+                <div className="w-full lg:w-80 p-4 sm:p-6 bg-gray-50 dark:bg-gray-900 overflow-y-auto">
+                  <div className="space-y-6">
+                    {/* Description */}
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        Description
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        {selectedFlyer.description}
+                      </p>
+                    </div>
+
+                    {/* Services */}
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        Services Featured
+                      </h4>
+                      <ul className="space-y-1">
+                        {selectedFlyer.services.map((service, index) => (
+                          <li key={index} className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                            <div className="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2"></div>
+                            {service}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Color Palette */}
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        Color Palette
+                      </h4>
+                      <div className="flex space-x-2">
+                        {selectedFlyer.colors.map((color, index) => (
+                          <div
+                            key={index}
+                            className="w-8 h-8 rounded-lg border-2 border-gray-300 dark:border-gray-600 shadow-sm"
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Design Details */}
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        Design Details
+                      </h4>
+                      <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <div className="flex justify-between">
+                          <span>Category:</span>
+                          <span className="font-medium">{selectedFlyer.category}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Client:</span>
+                          <span className="font-medium">{selectedFlyer.client}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Type:</span>
+                          <span className="font-medium">Promotional Flyer</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons removed per request */}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
