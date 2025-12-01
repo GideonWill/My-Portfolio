@@ -319,6 +319,42 @@ const projects = [
   },
   // Web Development Projects
   {
+    title: "Demargo Interior Contractors",
+    description:
+      "Professional interior decor company website showcasing elegant design solutions and comprehensive interior decoration services.",
+    techStack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    demoLink: "https://demargointerior.com",
+    image: "/images/demargo.jpg",
+    color: "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
+  {
+    title: "AMB360 Cleaning Agency",
+    description:
+      "Modern cleaning services agency website offering professional cleaning solutions with a clean, user-friendly interface.",
+    techStack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    demoLink: "https://amb360cleaning.com",
+    image: "/images/amb360.jpg",
+    color: "bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
+  {
+    title: "Our Help Paige Foundation",
+    description:
+      "Nonprofit foundation website dedicated to supporting individuals with disabilities and promoting accessibility and inclusion in the community.",
+    techStack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    demoLink: "https://ourhelppaige.org",
+    image: "/images/ourhelppaige-logo.png",
+    color: "bg-gradient-to-br from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
+  {
     title: "Let's Buy",
     description:
       "A modern e-commerce platform with advanced search and filtering capabilities.",
@@ -524,22 +560,20 @@ const ProjectCard = ({ project, index, onImageClick }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`rounded-lg shadow-lg overflow-hidden border-2 border-yellow-400 dark:border-yellow-500 ${project.color} ${
-        project.featured ? "ring-2 ring-amber-400 dark:ring-amber-300" : ""
-      }`}
+      className={`rounded-lg shadow-lg overflow-hidden border-2 border-yellow-400 dark:border-yellow-500 ${project.color} ${project.featured ? "ring-2 ring-amber-400 dark:ring-amber-300" : ""
+        }`}
     >
       <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 flex flex-col gap-1 sm:gap-2">
         <span
           className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-bold 
-          ${
-            isGraphicDesign 
+          ${isGraphicDesign
               ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white"
               : isLogoDesign
-              ? "bg-gradient-to-r from-orange-500 to-red-500 text-white"
-              : isUiDesign 
-              ? "bg-purple-500 text-white" 
-              : "bg-blue-500 text-white"
-          }`}
+                ? "bg-gradient-to-r from-orange-500 to-red-500 text-white"
+                : isUiDesign
+                  ? "bg-purple-500 text-white"
+                  : "bg-blue-500 text-white"
+            }`}
         >
           {project.category}
         </span>
@@ -551,25 +585,23 @@ const ProjectCard = ({ project, index, onImageClick }) => {
       </div>
 
       <div
-        className={`relative overflow-hidden cursor-pointer border-2 border-yellow-400 dark:border-yellow-500 touch-target ${
-          isGraphicDesign 
-            ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80" 
-            : isLogoDesign
+        className={`relative overflow-hidden cursor-pointer border-2 border-yellow-400 dark:border-yellow-500 touch-target ${isGraphicDesign
+          ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80"
+          : isLogoDesign
             ? "h-40 xs:h-48 sm:h-56 md:h-64"
-            : isUiDesign 
-            ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80" 
-            : "h-40 xs:h-48 sm:h-56 md:h-64"
-        }`}
+            : isUiDesign
+              ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80"
+              : "h-40 xs:h-48 sm:h-56 md:h-64"
+          }`}
         onClick={() => onImageClick && onImageClick(project)}
       >
         <img
           src={project.image}
           alt={project.title}
-          className={`w-full h-full ${
-            isGraphicDesign || isUiDesign || isLogoDesign
-              ? "object-contain bg-white dark:bg-gray-800 p-2"
-              : "object-cover"
-          } transform transition-transform duration-500 hover:scale-105`}
+          className={`w-full h-full ${isGraphicDesign || isUiDesign || isLogoDesign
+            ? "object-contain bg-white dark:bg-gray-800 p-2"
+            : "object-cover"
+            } transform transition-transform duration-500 hover:scale-105`}
           loading="lazy"
           decoding="async"
           onError={(e) => {
@@ -577,7 +609,7 @@ const ProjectCard = ({ project, index, onImageClick }) => {
             e.target.alt = 'Flyer design placeholder';
           }}
         />
-        
+
         {/* Hover overlay with popup button */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-6">
           <h3 className="text-lg sm:text-xl font-bold mb-2 text-white text-shadow">
@@ -651,11 +683,10 @@ const ProjectCard = ({ project, index, onImageClick }) => {
               href={project.demoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-md transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target ${
-                isGraphicDesign 
-                  ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600" 
-                  : "bg-blue-600 hover:bg-blue-500"
-              }`}
+              className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-md transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target ${isGraphicDesign
+                ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
+                : "bg-blue-600 hover:bg-blue-500"
+                }`}
               style={{ minHeight: "40px" }}
             >
               <FaExternalLinkAlt size={12} />
@@ -724,7 +755,7 @@ const Projects = () => {
   const handleTouchEnd = (e) => {
     const endX = e.changedTouches[0].clientX;
     const diffX = startX - endX;
-    
+
     // If swipe is significant enough (more than 50px)
     if (Math.abs(diffX) > 50) {
       if (diffX > 0) {
@@ -740,7 +771,7 @@ const Projects = () => {
       }
     }
   };
-  
+
   // Handle swipe on project cards
   const handleCardSwipe = (info, project, index) => {
     // If swipe is significant enough
@@ -801,12 +832,12 @@ const Projects = () => {
               A comprehensive overview of my creative work
             </p>
           </motion.div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {[
               { label: "Flyers Designed", value: "18+", color: "from-purple-400 to-pink-500" },
               { label: "Logos Created", value: "11+", color: "from-orange-400 to-red-500" },
-              { label: "Web Projects", value: "11+", color: "from-blue-400 to-cyan-500" },
+              { label: "Web Projects", value: "13+", color: "from-blue-400 to-cyan-500" },
               { label: "UI Designs", value: "8+", color: "from-indigo-400 to-purple-500" }
             ].map((stat, index) => (
               <motion.div
@@ -830,42 +861,41 @@ const Projects = () => {
       {/* Projects Section with Filter */}
       <div className="py-10 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Category Filter */}
-        <div 
+        <div
           ref={categoriesRef}
           className="mb-8 sm:mb-12 flex justify-center"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
           <div className="inline-flex p-1 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg border-2 border-yellow-400 dark:border-yellow-500">
-          {filters.map((category, index) => (
-            <motion.button
-              key={category}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 ${
-                filter === category
+            {filters.map((category, index) => (
+              <motion.button
+                key={category}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 ${filter === category
                   ? category === "Graphic Design"
                     ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg"
                     : category === "Logo Design"
-                    ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
-                    : category === "UI Design"
-                    ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg"
-                    : "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
+                      : category === "UI Design"
+                        ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg"
+                        : "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-              }`}
-              onClick={() => {
-                setFilter(category);
-                setCurrentCategoryIndex(index);
-              }}
-            >
-              {category}
-            </motion.button>
-          ))}
+                  }`}
+                onClick={() => {
+                  setFilter(category);
+                  setCurrentCategoryIndex(index);
+                }}
+              >
+                {category}
+              </motion.button>
+            ))}
           </div>
         </div>
-        
+
         {/* Mobile swipe instruction - only shown on small screens */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="md:hidden text-center mb-6 text-xs text-gray-500 dark:text-gray-400"
@@ -961,7 +991,7 @@ const Projects = () => {
                   <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4 sm:mb-6">
                     {selectedProject.description}
                   </p>
-                  
+
                   {/* Project Stats */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
                     <div className="text-center">
@@ -980,9 +1010,9 @@ const Projects = () => {
                     </div>
                     <div className="text-center">
                       <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
-                        {selectedProject.category === "Graphic Design" ? "Design" : 
-                         selectedProject.category === "Logo Design" ? "Branding" :
-                         selectedProject.category === "UI Design" ? "Interface" : "Development"}
+                        {selectedProject.category === "Graphic Design" ? "Design" :
+                          selectedProject.category === "Logo Design" ? "Branding" :
+                            selectedProject.category === "UI Design" ? "Interface" : "Development"}
                       </div>
                       <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Category</div>
                     </div>
@@ -997,19 +1027,18 @@ const Projects = () => {
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     Project Details
                   </h3>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Category</label>
-                      <div className={`mt-1 px-3 py-1 rounded-full text-sm font-medium inline-block ${
-                        selectedProject.category === "Graphic Design"
-                          ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white"
-                          : selectedProject.category === "Logo Design"
+                      <div className={`mt-1 px-3 py-1 rounded-full text-sm font-medium inline-block ${selectedProject.category === "Graphic Design"
+                        ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white"
+                        : selectedProject.category === "Logo Design"
                           ? "bg-gradient-to-r from-orange-500 to-red-500 text-white"
                           : selectedProject.category === "UI Design"
-                          ? "bg-purple-500 text-white"
-                          : "bg-blue-500 text-white"
-                      }`}>
+                            ? "bg-purple-500 text-white"
+                            : "bg-blue-500 text-white"
+                        }`}>
                         {selectedProject.category}
                       </div>
                     </div>
@@ -1065,25 +1094,23 @@ const Projects = () => {
                         href={selectedProject.demoLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`w-full flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition-colors ${
-                          selectedProject.category === "Graphic Design"
-                            ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
-                            : selectedProject.category === "Logo Design"
+                        className={`w-full flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition-colors ${selectedProject.category === "Graphic Design"
+                          ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
+                          : selectedProject.category === "Logo Design"
                             ? "bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
                             : "bg-blue-600 hover:bg-blue-500"
-                        }`}
+                          }`}
                       >
                         <FaExternalLinkAlt size={14} />
                         <span>{selectedProject.category === "Graphic Design" || selectedProject.category === "Logo Design" ? "View Design" : "Live Demo"}</span>
                       </a>
                     )}
-                    <button 
+                    <button
                       onClick={() => toggleLike(selectedProject.title)}
-                      className={`w-full flex items-center justify-center space-x-2 px-4 py-2 border rounded-md transition-colors ${
-                        likedProjects.has(selectedProject.title)
-                          ? "border-red-500 text-red-500 bg-red-50 dark:bg-red-900/20"
-                          : "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
-                      }`}
+                      className={`w-full flex items-center justify-center space-x-2 px-4 py-2 border rounded-md transition-colors ${likedProjects.has(selectedProject.title)
+                        ? "border-red-500 text-red-500 bg-red-50 dark:bg-red-900/20"
+                        : "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        }`}
                     >
                       <svg className={`w-4 h-4 ${likedProjects.has(selectedProject.title) ? "fill-current" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -1100,8 +1127,8 @@ const Projects = () => {
                   </h3>
                   <div className="space-y-3">
                     {visibleProjects.filter(p => p.category === selectedProject.category && p.title !== selectedProject.title).slice(0, 3).map((project) => (
-                      <div 
-                        key={project.title} 
+                      <div
+                        key={project.title}
                         className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-yellow-400 dark:border-yellow-500"
                         onClick={() => {
                           closeModal();
