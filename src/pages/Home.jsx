@@ -272,11 +272,11 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen overflow-hidden">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Hero Section with Parallax */}
       <section
         ref={heroRef}
-        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden mobile-container"
+        className="relative flex items-center justify-center min-h-screen pt-safe pb-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 mobile-container"
       >
         {/* Static pattern background instead of particles */}
         <LightPatternBackground />
