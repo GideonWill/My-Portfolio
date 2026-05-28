@@ -15,6 +15,16 @@ import {
   FaTimes,
   FaExpand,
 } from "react-icons/fa";
+import {
+  RectangleGroupIcon,
+  PhotoIcon,
+  SparklesIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  ServerIcon,
+  HashtagIcon,
+  BoltIcon,
+} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 // Simplified Background Pattern Component instead of animated particles
@@ -177,14 +187,14 @@ const Home = () => {
   };
 
   const skills = [
-    { name: "UI/UX Design", icon: "🎨" },
-    { name: "Graphic Design", icon: "🖼️" },
-    { name: "Logo Design", icon: "✨" },
-    { name: "React", icon: "⚛️" },
-    { name: "JavaScript", icon: "📜" },
-    { name: "PHP", icon: "🐘" },
-    { name: "C#", icon: "🔵" },
-    { name: "Node.js", icon: "🟢" },
+    { name: "UI/UX Design", icon: RectangleGroupIcon },
+    { name: "Graphic Design", icon: PhotoIcon },
+    { name: "Logo Design", icon: SparklesIcon },
+    { name: "React", icon: CodeBracketIcon },
+    { name: "JavaScript", icon: DocumentTextIcon },
+    { name: "PHP", icon: ServerIcon },
+    { name: "C#", icon: HashtagIcon },
+    { name: "Node.js", icon: BoltIcon },
   ];
 
   // Featured flyer designs
@@ -238,21 +248,11 @@ const Home = () => {
   // Featured projects
   const featuredProjects = [
     {
-      title: "Hop and Shop",
-      description: "A modern e-commerce platform with advanced features.",
-      image: "/images/hopandshop.jpg",
-      color: "from-red-500 to-purple-500",
-    },
-    {
-      title: "Mother and Child Hospital",
-      description: "Healthcare management system for mother and child care.",
-      image: "/images/mch.jpg",
-      color: "from-green-500 to-blue-500",
-    },
-    {
       title: "Jopee Travel & Tours",
       description: "Transportation booking system with intuitive UI.",
       image: "/images/jopee.jpg",
+      demoLink:
+        "https://www.figma.com/design/FsS5t1BzVmUXiloU6pmzyG/Jopee-Booking-system-(Copy)?node-id=0-1&t=U2xMSeVwpwf0MhbJ-1",
       color: "from-yellow-500 to-orange-500",
     },
   ];
@@ -440,20 +440,39 @@ const Home = () => {
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-2 text-shadow">
                     {project.title}
                   </h3>
-                  <Link
-                    to="/projects"
-                    className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
-                  >
-                    <span>View Project</span>
-                    <motion.span
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.3 }}
-                      className="ml-2"
+                  {project.demoLink ? (
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
                     >
-                      <FaArrowRight size={12} />
-                    </motion.span>
-                  </Link>
+                      <span>Live Demo</span>
+                      <motion.span
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.3 }}
+                        className="ml-2"
+                      >
+                        <FaArrowRight size={12} />
+                      </motion.span>
+                    </a>
+                  ) : (
+                    <Link
+                      to="/projects"
+                      className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
+                    >
+                      <span>View Project</span>
+                      <motion.span
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.3 }}
+                        className="ml-2"
+                      >
+                        <FaArrowRight size={12} />
+                      </motion.span>
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -757,8 +776,8 @@ const Home = () => {
                 className="bg-white dark:bg-gray-700 p-3 sm:p-4 md:p-6 rounded-lg shadow-md text-center flex flex-col items-center justify-center touch-target"
                 style={{ minHeight: "80px" }}
               >
-                <div className="text-xl sm:text-2xl md:text-4xl mb-2 md:mb-4">
-                  {skill.icon}
+                <div className="mb-2 md:mb-4">
+                  <skill.icon className="w-10 h-10 mx-auto text-indigo-500" aria-hidden="true" />
                 </div>
                 <h3 className="text-xs sm:text-sm md:text-base font-medium text-gray-800 dark:text-gray-100 leading-tight">
                   {skill.name}

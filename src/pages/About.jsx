@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaRegLightbulb, FaRegHandshake, FaChartLine } from "react-icons/fa";
+import {
+  CodeBracketIcon,
+  ServerIcon,
+  DocumentTextIcon,
+  PaintBrushIcon,
+  DevicePhoneMobileIcon,
+} from "@heroicons/react/24/outline";
 
 const About = () => {
   useEffect(() => {
@@ -19,31 +26,31 @@ const About = () => {
     {
       name: "React Development",
       description: "Building interactive and responsive web applications",
-      icon: "⚛️",
+      icon: CodeBracketIcon,
       bgColor: "bg-cyan-50 dark:bg-cyan-900/20",
     },
     {
       name: "PHP & C#",
       description: "Developing robust backend systems and applications",
-      icon: "🐘",
+      icon: ServerIcon,
       bgColor: "bg-purple-50 dark:bg-purple-900/20",
     },
     {
       name: "JavaScript",
       description: "Crafting dynamic and engaging user interactions",
-      icon: "📜",
+      icon: DocumentTextIcon,
       bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
     },
     {
       name: "HTML/CSS",
       description: "Structuring and styling the modern web",
-      icon: "🎨",
+      icon: PaintBrushIcon,
       bgColor: "bg-orange-50 dark:bg-orange-900/20",
     },
     {
       name: "Mobile-First Design",
       description: "Ensuring optimal experiences across all devices",
-      icon: "📱",
+      icon: DevicePhoneMobileIcon,
       bgColor: "bg-green-50 dark:bg-green-900/20",
     },
   ];
@@ -234,7 +241,7 @@ const About = () => {
                 ) : (
                   skill.icon && (
                     <div className="mb-4 sm:mb-6 h-24 sm:h-28 md:h-32 flex items-center justify-center">
-                      <span className="text-4xl sm:text-5xl md:text-6xl">{skill.icon}</span>
+                      <skill.icon className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-blue-600 dark:text-blue-300" aria-hidden="true" />
                     </div>
                   )
                 )}
