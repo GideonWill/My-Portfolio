@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -208,7 +209,11 @@ const Navbar = () => {
                 darkMode ? "Switch to light mode" : "Switch to dark mode"
               }
             >
-              {darkMode ? "🌞" : "🌙"}
+              {darkMode ? (
+                <SunIcon className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <MoonIcon className="h-5 w-5" aria-hidden="true" />
+              )}
             </button>
           </div>
 
@@ -309,13 +314,22 @@ const Navbar = () => {
             >
               Contact
             </NavLink>
+          </div>
+          <div className="px-4 pb-6 border-t border-gray-200 dark:border-gray-700">
             <button
               onClick={toggleDarkMode}
-              className="w-full flex items-center justify-between px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg touch-target"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg touch-target"
               style={{ minHeight: "48px" }}
+              aria-label={
+                darkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
-              <span>Toggle {darkMode ? "Light" : "Dark"} Mode</span>
-              <span className="text-lg">{darkMode ? "🌞" : "🌙"}</span>
+              {darkMode ? (
+                <SunIcon className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <MoonIcon className="h-5 w-5" aria-hidden="true" />
+              )}
+              <span>Switch to {darkMode ? "Light" : "Dark"} Mode</span>
             </button>
           </div>
         </motion.div>

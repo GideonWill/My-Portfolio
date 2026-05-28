@@ -251,9 +251,25 @@ const Home = () => {
       title: "Jopee Travel & Tours",
       description: "Transportation booking system with intuitive UI.",
       image: "/images/jopee.jpg",
-      demoLink:
-        "https://www.figma.com/design/FsS5t1BzVmUXiloU6pmzyG/Jopee-Booking-system-(Copy)?node-id=0-1&t=U2xMSeVwpwf0MhbJ-1",
       color: "from-yellow-500 to-orange-500",
+    },
+    {
+      title: "Demargo Interior Contractors",
+      description: "Interior decor company website with elegant visuals and clear service presentation.",
+      image: "/images/demargo.jpg",
+      color: "from-amber-500 to-orange-500",
+    },
+    {
+      title: "AMB360 Cleaning Agency",
+      description: "Cleaning service website with modern layout and service highlights.",
+      image: "/images/amb360.jpg",
+      color: "from-cyan-500 to-blue-500",
+    },
+    {
+      title: "RAKO FOODS",
+      description: "Food delivery and restaurant management platform with intuitive ordering flow.",
+      image: "/images/rako.jpg",
+      color: "from-orange-500 to-red-500",
     },
   ];
 
@@ -440,39 +456,20 @@ const Home = () => {
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-2 text-shadow">
                     {project.title}
                   </h3>
-                  {project.demoLink ? (
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
+                  <Link
+                    to="/projects"
+                    className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
+                  >
+                    <span>View Project</span>
+                    <motion.span
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.3 }}
+                      className="ml-2"
                     >
-                      <span>Live Demo</span>
-                      <motion.span
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3 }}
-                        className="ml-2"
-                      >
-                        <FaArrowRight size={12} />
-                      </motion.span>
-                    </a>
-                  ) : (
-                    <Link
-                      to="/projects"
-                      className="text-white font-medium inline-flex items-center bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors duration-300 shadow-md w-fit text-xs sm:text-sm"
-                    >
-                      <span>View Project</span>
-                      <motion.span
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3 }}
-                        className="ml-2"
-                      >
-                        <FaArrowRight size={12} />
-                      </motion.span>
-                    </Link>
-                  )}
+                      <FaArrowRight size={12} />
+                    </motion.span>
+                  </Link>
                 </div>
               </motion.div>
             ))}
