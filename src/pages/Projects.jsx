@@ -352,7 +352,6 @@ const projects = [
     color: "bg-gradient-to-br from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20",
     category: "Web Development",
     featured: true,
-    hasLiveDemo: true,
   },
   {
     title: "Let's Buy",
@@ -388,7 +387,6 @@ const projects = [
     image: "/images/mosaic.jpg",
     color: "bg-purple-50 dark:bg-purple-900/20",
     category: "Web Development",
-    hasLiveDemo: true,
   },
   {
     title: "Jopee Travel & Tours UI",
@@ -533,7 +531,6 @@ const projects = [
     image: "/images/rako.jpg",
     color: "bg-orange-50 dark:bg-orange-900/20",
     category: "Web Development",
-    hasLiveDemo: true,
   },
   {
     title: "Plex Travel & Cargo",
@@ -545,7 +542,6 @@ const projects = [
     image: "/images/t6.jpg",
     color: "bg-cyan-50 dark:bg-cyan-900/20",
     category: "Web Development",
-    hasLiveDemo: true,
   },
 ];
 
@@ -772,6 +768,22 @@ const Projects = () => {
     }
   };
 
+  const statCategoryMap = {
+    "Flyers Designed": "Graphic Design",
+    "Logos Created": "Logo Design",
+    "Web Projects": "Web Development",
+    "UI Designs": "UI Design"
+  };
+
+  const handleStatClick = (label) => {
+    const category = statCategoryMap[label];
+    if (!category) return;
+    const index = filters.indexOf(category);
+    setFilter(category);
+    setCurrentCategoryIndex(index >= 0 ? index : 0);
+    categoriesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   // Handle swipe on project cards
   const handleCardSwipe = (info, project, index) => {
     // If swipe is significant enough
@@ -840,19 +852,23 @@ const Projects = () => {
               { label: "Web Projects", value: "13+", color: "from-blue-400 to-cyan-500" },
               { label: "UI Designs", value: "8+", color: "from-indigo-400 to-purple-500" }
             ].map((stat, index) => (
-              <motion.div
+              <motion.button
                 key={stat.label}
+                type="button"
+                onClick={() => handleStatClick(stat.label)}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-yellow-400 dark:border-yellow-500"
+                className="text-center p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-yellow-400 dark:border-yellow-500 cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400"
               >
                 <div className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
                   <span className="text-lg sm:text-2xl font-bold text-white">{stat.value}</span>
                 </div>
                 <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 leading-tight">{stat.label}</h3>
-              </motion.div>
+              </motion.button>
             ))}
           </div>
         </div>
