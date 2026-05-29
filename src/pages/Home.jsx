@@ -58,6 +58,7 @@ const Home = () => {
   // Testimonial slider
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
   const testimonialRef = useRef(null);
   const testimonials = [
@@ -96,6 +97,7 @@ const Home = () => {
   // Handle touch swipe for testimonials with improved detection
   const handleTestimonialTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
+    setStartY(e.touches[0].clientY);
     setIsSwiping(true);
     
     // Pause auto-rotation when user starts interacting
@@ -109,10 +111,13 @@ const Home = () => {
     if (!testimonialRef.current || !isSwiping) return;
     
     const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
     const diffX = startX - currentX;
+    const diffY = startY - currentY;
     
-    // If horizontal swipe is significant, prevent default to avoid page scrolling
-    if (Math.abs(diffX) > 10) {
+    // Only prevent default if it's clearly a horizontal swipe (more horizontal than vertical movement)
+    // This allows vertical scrolling to work normally
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
       e.preventDefault();
     }
   };

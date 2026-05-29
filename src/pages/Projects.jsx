@@ -606,27 +606,6 @@ const ProjectCard = ({ project, index, onImageClick }) => {
           }}
         />
 
-        {/* Hover overlay with popup button */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-6">
-          <h3 className="text-lg sm:text-xl font-bold mb-2 text-white text-shadow">
-            {project.title}
-          </h3>
-          <p className="text-sm text-gray-200 mb-3">
-            {project.description}
-          </p>
-          {(isGraphicDesign || isUiDesign || isLogoDesign) && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onImageClick && onImageClick(project);
-              }}
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105"
-            >
-              <FaEye className="mr-2" size={14} />
-              View Full Size
-            </button>
-          )}
-        </div>
       </div>
 
       <div className="p-3 sm:p-4 md:p-6">
@@ -672,21 +651,6 @@ const ProjectCard = ({ project, index, onImageClick }) => {
             >
               <FaExternalLinkAlt size={12} />
               <span>Live Demo</span>
-            </a>
-          )}
-          {!project.hasLiveDemo && project.showPreview !== false && (
-            <a
-              href={project.demoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-md transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target ${isGraphicDesign
-                ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
-                : "bg-blue-600 hover:bg-blue-500"
-                }`}
-              style={{ minHeight: "40px" }}
-            >
-              <FaExternalLinkAlt size={12} />
-              <span>{isGraphicDesign ? "View Design" : "Preview"}</span>
             </a>
           )}
         </div>

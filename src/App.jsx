@@ -7,6 +7,8 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Resume from "./pages/Resume";
 import Footer from "./components/Footer";
+import Chatbot from "./components/Chatbot";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Custom hook to handle orientation changes
 const useOrientationChange = () => {
@@ -79,9 +81,9 @@ function App() {
 
   return (
     <Router>
-      <div className={`min-h-screen bg-gray-50 dark:bg-gray-900 mobile-scroll mobile-text-rendering ${orientation.type}`}>
+      <div className={`bg-gray-50 dark:bg-gray-900 mobile-scroll mobile-text-rendering ${orientation.type}`}>
         <Navbar />
-        <main className="mobile-no-zoom">
+        <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -91,6 +93,8 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <Chatbot />
+        <ScrollToTop />
       </div>
     </Router>
   );
