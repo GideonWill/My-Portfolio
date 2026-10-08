@@ -1,102 +1,155 @@
-import { useState, useEffect, useRef } from "react";
-import { FaRobot, FaTimes, FaPaperPlane } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { FaArrowRight, FaPaperPlane, FaRedoAlt, FaTimes } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-// Simple Animated Logo Avatar Component
-const LogoAvatar = () => {
-  return (
-    <div className="h-16 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center rounded-t-2xl">
-      <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 5, -5, 0]
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center"
-      >
-        <img src="/GWO.png" alt="GWO Logo" className="w-8 h-8" />
-      </motion.div>
-    </div>
-  );
+const intents = [
+  {
+    id: "about",
+    phrases: ["about gideon", "tell me about gideon", "who is gideon", "who are you", "background", "introduce yourself", "about him"],
+    text: "Gideon William Ogunu is a UI/UX designer and developer with over five years of experience creating digital experiences. He brings design and development together to make products that are useful, polished, and easy to use.",
+    path: "/about",
+    linkText: "Meet Gideon",
+  },
+  {
+    id: "skills",
+    phrases: ["skills", "tech stack", "technologies", "tools", "programming languages", "what can you build", "design software", "react", "javascript", "php", "figma", "html css", "html/css", "mobile first", "ui ux design", "ui/ux design"],
+    text: "Gideon's expertise includes UI/UX and mobile-first design, React, JavaScript, HTML/CSS, PHP, and C#. His project work also shows graphic design and brand work.",
+    path: "/about",
+    linkText: "Explore his expertise",
+  },
+  {
+    id: "projects",
+    phrases: ["projects", "portfolio", "work", "case studies", "websites", "web development", "apps", "what have you made", "show me your work"],
+    text: "His portfolio includes web development, UI design, logo design, and graphic design work. Browse the projects to see examples across those categories.",
+    path: "/projects",
+    linkText: "Browse projects",
+  },
+  {
+    id: "services",
+    phrases: ["services", "hire", "hire a designer", "hire a developer", "need a designer", "need a developer", "work together", "freelance", "what do you do", "what do you offer", "can you help", "website development", "build a website", "website design", "graphic design", "logo design", "logo", "branding", "ui ux design", "ui/ux design", "mobile app design"],
+    text: "Gideon works across website development, UI/UX and mobile app design, and graphic design such as logos and branding. Share a little about your project and he can discuss the best fit.",
+    path: "/contact",
+    linkText: "Discuss a project",
+  },
+  {
+    id: "contact",
+    phrases: ["contact", "email", "get in touch", "reach gideon", "send a message", "collaborate", "phone number", "email address"],
+    text: "You can email Gideon at gideonogunu@gmail.com or call +233 592678531. You can also send a message through the contact page.",
+    path: "/contact",
+    linkText: "Go to contact",
+  },
+  {
+    id: "resume",
+    phrases: ["resume", "résumé", "cv", "work experience", "education", "career history", "qualifications"],
+    text: "Gideon's resume page has more detail about his professional background and experience.",
+    path: "/resume",
+    linkText: "View resume",
+  },
+  {
+    id: "pricing",
+    phrases: ["price", "pricing", "cost", "rates", "budget", "how much", "quote", "charge"],
+    text: "Pricing depends on the project's scope and requirements, so I don't want to guess at a figure. Send Gideon the details and he can discuss a suitable quote.",
+    path: "/contact",
+    linkText: "Request a quote",
+  },
+  {
+    id: "timeline",
+    phrases: ["timeline", "deadline", "how long", "turnaround", "delivery time", "when can you finish"],
+    text: "Timelines depend on the work involved and the project scope. Share your deadline and requirements with Gideon to discuss a realistic schedule.",
+    path: "/contact",
+    linkText: "Discuss your timeline",
+  },
+  {
+    id: "location",
+    phrases: ["location", "where are you based", "where is gideon", "which country", "based in"],
+    text: "Gideon is based in Accra, Ghana. You can get in touch about working together remotely or locally.",
+    path: "/contact",
+    linkText: "Get in touch",
+  },
+  {
+    id: "availability",
+    phrases: ["available", "availability", "are you free", "taking clients", "accepting projects", "booked"],
+    text: "I can't confirm Gideon's current availability, but you can contact him with your project details to check.",
+    path: "/contact",
+    linkText: "Check availability",
+  },
+];
+
+const quickPrompts = [
+  "Who is Gideon?",
+  "Show me the projects",
+  "What services do you offer?",
+];
+
+const normalize = (value) =>
+  value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\w\s/]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const scoreIntent = (query, intent) => {
+  const matchedPhrases = intent.phrases.filter((phrase) => {
+    const normalizedPhrase = normalize(phrase);
+    return query.includes(normalizedPhrase) ||
+      normalizedPhrase.split(" ").every((word) => query.split(" ").includes(word));
+  });
+  if (!matchedPhrases.length) return 0;
+
+  const uniqueWords = new Set(matchedPhrases.flatMap((phrase) => normalize(phrase).split(" ")));
+  const exactPhraseBonus = matchedPhrases.some((phrase) => query.includes(normalize(phrase))) ? 2 : 0;
+  return uniqueWords.size + exactPhraseBonus;
 };
 
-// Knowledge base about the portfolio
-const knowledgeBase = {
-  about: {
-    keywords: ["about", "who", "gideon", "william", "ogunu", "background", "bio", "introduction", "myself", "yourself"],
-    response: "Gideon William Ogunu is a multi-talented Website Developer, Graphic Designer, and UI/UX Designer. He specializes in creating beautiful, user-centered digital experiences through clean code and intuitive interfaces. With expertise spanning web development, graphic design, and user experience design, he brings ideas to life holistically. You can learn more about him on the About page!"
-  },
-  skills: {
-    keywords: ["skills", "technologies", "tech", "stack", "tools", "programming", "coding", "languages", "frameworks"],
-    response: "As a Website Developer, Graphic Designer, and UI/UX Designer, Gideon is proficient in React, JavaScript, HTML/CSS, Node.js, Tailwind CSS for web development; Figma, Adobe Creative Suite (Photoshop, Illustrator, XD) for graphic and UI/UX design; and various design and development frameworks. He combines creative design thinking with technical expertise to create exceptional digital products."
-  },
-  projects: {
-    keywords: ["projects", "work", "portfolio", "design", "development", "websites", "apps", "created", "built", "made"],
-    response: "Gideon has worked on numerous projects showcasing his skills as a Website Developer, Graphic Designer, and UI/UX Designer. His work includes web development (Demargo Interior Contractors, AMB360 Cleaning Agency, Our Help Paige Foundation), graphic design (flyers, logos, branding materials, marketing assets), and UI/UX design (mobile app interfaces, dashboards, user flows). You can explore all his projects on the Projects page, organized by category: Graphic Design, Logo Design, Web Development, and UI Design."
-  },
-  contact: {
-    keywords: ["contact", "email", "reach", "message", "hire", "work", "collaborate", "together", "get in touch", "connect"],
-    response: "You can contact Gideon through the Contact page on this website. As a Website Developer, Graphic Designer, and UI/UX Designer, he's always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!"
-  },
-  resume: {
-    keywords: ["resume", "cv", "experience", "education", "qualifications", "background", "career", "history"],
-    response: "Gideon's resume is available on the Resume page, where you can find detailed information about his work experience, education, skills, and professional background as a Website Developer, Graphic Designer, and UI/UX Designer. It showcases his journey and expertise across all three disciplines."
-  },
-  services: {
-    keywords: ["services", "offer", "provide", "help", "what do you do", "can you", "available for"],
-    response: "Gideon offers comprehensive services as a Website Developer, Graphic Designer, and UI/UX Designer. His services include website development (responsive websites, web applications), graphic design (flyers, logos, branding, marketing materials), and UI/UX design (user research, wireframing, prototyping, interface design). He's available for freelance projects and collaborations. Check the Projects page to see examples of his work!"
-  },
-  pricing: {
-    keywords: ["price", "cost", "rate", "charge", "expensive", "cheap", "budget", "money", "payment"],
-    response: "Project pricing depends on the scope and requirements. As a Website Developer, Graphic Designer, and UI/UX Designer, Gideon offers competitive rates and can provide a custom quote based on your specific needs. Feel free to contact him through the Contact page to discuss your project and get a detailed quote."
-  },
-  timeline: {
-    keywords: ["time", "deadline", "how long", "duration", "fast", "quick", "when", "schedule"],
-    response: "Project timelines vary based on complexity and scope. Gideon works efficiently as a Website Developer, Graphic Designer, and UI/UX Designer to deliver quality work within agreed timeframes. For specific timeline estimates, please reach out through the Contact page with details about your project."
-  },
-  location: {
-    keywords: ["location", "where", "based", "country", "city", "place", "from"],
-    response: "Gideon is based in Ghana and works with clients globally as a Website Developer, Graphic Designer, and UI/UX Designer. Thanks to remote collaboration tools, he can work with clients from anywhere in the world!"
-  },
-  availability: {
-    keywords: ["available", "free", "busy", "booked", "schedule", "now", "current"],
-    response: "Gideon is currently available for new projects! As a Website Developer, Graphic Designer, and UI/UX Designer, he's excited to take on new challenges and collaborate on innovative projects. Reach out through the Contact page to discuss your ideas."
-  },
-  developer: {
-    keywords: ["developer", "web developer", "website", "coding", "programming", "frontend", "backend"],
-    response: "As a Website Developer, Gideon specializes in building responsive, modern websites and web applications. He's proficient in React, JavaScript, HTML/CSS, Node.js, and Tailwind CSS. He creates clean, efficient code and follows best practices to ensure optimal performance and user experience."
-  },
-  designer: {
-    keywords: ["designer", "graphic designer", "graphic", "design", "creative", "art", "visual"],
-    response: "As a Graphic Designer, Gideon creates stunning visual content including logos, flyers, branding materials, marketing assets, and more. He uses Adobe Creative Suite (Photoshop, Illustrator, XD) and has a keen eye for aesthetics, color theory, and typography to create impactful designs."
-  },
-  uiux: {
-    keywords: ["ui", "ux", "ui/ux", "user interface", "user experience", "interaction", "usability"],
-    response: "As a UI/UX Designer, Gideon specializes in creating intuitive, user-centered interfaces. He conducts user research, creates wireframes and prototypes, and designs seamless user experiences. He uses Figma and follows design thinking principles to ensure products are both beautiful and functional."
+const findResponses = (input) => {
+  const query = normalize(input);
+  const ranked = intents
+    .map((intent) => ({ intent, score: scoreIntent(query, intent) }))
+    .filter(({ score }) => score >= 2)
+    .sort((a, b) => b.score - a.score);
+
+  if (!ranked.length) return [];
+  const selected = [ranked[0]];
+  if (ranked[1] && ranked[1].score >= 3 && ranked[1].score >= ranked[0].score * 0.65) {
+    selected.push(ranked[1]);
   }
+  return selected.map(({ intent }) => intent);
 };
 
-// Conversation ending phrases
-const endingPhrases = [
-  "Is there anything else I can help you with?",
-  "Feel free to ask if you have more questions!",
-  "I'm here if you need anything else.",
-  "Don't hesitate to reach out for more information.",
-  "Would you like to know more about any specific topic?",
-  "I hope that helps! Let me know if you need anything else."
-];
+const getBotReply = (input, previousIntent) => {
+  const query = normalize(input);
+  if (/^(hi|hello|hey|good morning|good afternoon|good evening|howdy)$/.test(query)) {
+    return {
+      text: "Hi! I can help you explore Gideon's work, services, experience, or ways to get in touch.",
+      suggestions: quickPrompts,
+    };
+  }
+  if (/^(thanks|thank you|thx|bye|goodbye|see you)$/.test(query)) {
+    return { text: "You're welcome! Feel free to ask if you'd like to explore anything else." };
+  }
+  if (/^(tell me more|more details|go on|and what else|what about that)$/.test(query) && previousIntent) {
+    return { text: previousIntent.text, path: previousIntent.path, linkText: previousIntent.linkText };
+  }
 
-// Greeting phrases
-const greetingPhrases = [
-  "Hello! I'm Gideon's virtual assistant. How can I help you today?",
-  "Hi there! Welcome to Gideon's portfolio. What would you like to know?",
-  "Hey! I'm here to help you explore Gideon's work. What are you interested in?",
-  "Greetings! Feel free to ask me anything about Gideon's portfolio."
-];
+  const matches = findResponses(input);
+  if (matches.length) {
+    return {
+      text: matches.map(({ text }) => text).join("\n\n"),
+      path: matches[0].path,
+      linkText: matches.length > 1 ? "Explore more" : matches[0].linkText,
+      intent: matches[0],
+    };
+  }
+
+  return {
+    text: "I don't have a reliable answer for that yet. I can help with Gideon's background, skills, projects, services, resume, pricing, or contact details.",
+    suggestions: ["Show me the projects", "How can I contact Gideon?"],
+  };
+};
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,217 +157,237 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+  const pendingReplyRef = useRef(null);
+  const previousIntentRef = useRef(null);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      // Send initial greeting
-      const randomGreeting = greetingPhrases[Math.floor(Math.random() * greetingPhrases.length)];
-      setMessages([{ role: "bot", text: randomGreeting }]);
+      setMessages([{
+        role: "bot",
+        text: "Hi, I'm Gideon's portfolio assistant. What would you like to know?",
+        suggestions: quickPrompts,
+      }]);
     }
   }, [isOpen, messages.length]);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, isTyping]);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus();
+  }, [isOpen]);
 
-  const findBestMatch = (userInput) => {
-    const lowerInput = userInput.toLowerCase();
-    let bestMatch = null;
-    let highestScore = 0;
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
-    for (const [category, data] of Object.entries(knowledgeBase)) {
-      let score = 0;
-      data.keywords.forEach(keyword => {
-        if (lowerInput.includes(keyword)) {
-          score += 1;
-        }
-        // Partial match bonus
-        if (keyword.includes(lowerInput) || lowerInput.includes(keyword)) {
-          score += 0.5;
-        }
-      });
+  useEffect(() => () => window.clearTimeout(pendingReplyRef.current), []);
 
-      if (score > highestScore) {
-        highestScore = score;
-        bestMatch = data;
-      }
-    }
+  const handleSendMessage = (value = inputValue) => {
+    const userMessage = value.trim();
+    if (!userMessage || isTyping) return;
 
-    return { match: bestMatch, score: highestScore };
-  };
-
-  const generateResponse = (userInput) => {
-    const lowerInput = userInput.toLowerCase();
-
-    // Check for conversation ending signals
-    if (lowerInput.includes("thank") || lowerInput.includes("thanks") || lowerInput.includes("bye") || lowerInput.includes("goodbye")) {
-      const randomEnding = endingPhrases[Math.floor(Math.random() * endingPhrases.length)];
-      return randomEnding;
-    }
-
-    // Check for greetings
-    if (lowerInput.includes("hello") || lowerInput.includes("hi") || lowerInput.includes("hey")) {
-      return "Hello! How can I help you explore Gideon's portfolio today?";
-    }
-
-    // Find best match in knowledge base
-    const { match: bestMatch, score } = findBestMatch(userInput);
-
-    if (bestMatch && score > 0) {
-      return bestMatch.response;
-    }
-
-    // Fallback response
-    return "I'm not sure about that specific question, but I'd be happy to help you learn more about Gideon's work! You can explore his projects, skills, or contact information on this website. For specific inquiries, feel free to reach out through the Contact page.";
-  };
-
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
-
-    const userMessage = inputValue.trim();
-    setMessages(prev => [...prev, { role: "user", text: userMessage }]);
+    setMessages((previous) => [...previous, { role: "user", text: userMessage }]);
     setInputValue("");
     setIsTyping(true);
-
-    // Simulate typing delay
-    setTimeout(() => {
-      const botResponse = generateResponse(userMessage);
-      setMessages(prev => [...prev, { role: "bot", text: botResponse }]);
+    pendingReplyRef.current = window.setTimeout(() => {
+      const reply = getBotReply(userMessage, previousIntentRef.current);
+      if (reply.intent) previousIntentRef.current = reply.intent;
+      setMessages((previous) => [...previous, { role: "bot", ...reply }]);
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    }, 350);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleSendMessage();
   };
 
-  return (
+  const resetChat = () => {
+    window.clearTimeout(pendingReplyRef.current);
+    previousIntentRef.current = null;
+    setIsTyping(false);
+    setMessages([]);
+  };
+
+  return createPortal(
     <>
-      {/* Chat Button */}
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ 
-          scale: 1,
-          y: [0, -10, 0]
-        }}
-        transition={{
-          scale: { type: "spring", stiffness: 300, damping: 20 },
-          y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-        }}
-        whileHover={{ scale: 1.15 }}
-        whileTap={{ scale: 0.9 }}
+      <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 p-3 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all touch-target"
-        aria-label="Open chat"
-        style={{ minHeight: "56px", minWidth: "56px" }}
+        className="fixed bottom-5 right-5 z-50 flex min-h-14 items-center gap-3 rounded-full bg-[#0A1240] px-3.5 text-white shadow-[0_12px_36px_rgba(10,18,64,0.3)] ring-1 ring-white/20 transition hover:scale-105 hover:bg-[#17245f] active:scale-95 sm:bottom-6 sm:right-6"
+        aria-label="Open Gideon's portfolio assistant"
+        aria-expanded={isOpen}
+        style={{ minHeight: "56px" }}
       >
-        <img src="/GWO.png" alt="GWO Logo" className="w-8 h-8" />
-      </motion.button>
+        <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white">
+          <img src="/GWO.png" alt="" className="h-8 w-8 object-contain" />
+        </span>
+        <span className="pr-1 text-left">
+          <span className="block text-sm font-semibold leading-tight">Ask Gideon</span>
+          <span className="block text-[10px] text-white/70">Portfolio assistant</span>
+        </span>
+      </button>
 
-      {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          <motion.section
+            initial={false}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-24 right-6 z-50 w-72 sm:w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden"
+            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="fixed bottom-[5.25rem] right-3 z-50 flex h-[min(36rem,calc(100dvh-7rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.35rem] border border-[#0A1240]/10 bg-[#f8f9fc] shadow-[0_24px_80px_rgba(10,18,64,0.24)] sm:bottom-24 sm:right-6"
+            role="dialog"
+            aria-modal="false"
+            aria-label="Gideon's portfolio assistant"
           >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <FaRobot size={14} />
+            <header className="relative overflow-hidden bg-[#0A1240] px-5 pb-5 pt-4 text-white">
+              <div className="pointer-events-none absolute -right-8 -top-14 h-40 w-40 rounded-full border border-white/10" />
+              <div className="pointer-events-none absolute -right-1 -top-8 h-28 w-28 rounded-full border border-white/10" />
+              <div className="relative flex items-center justify-between gap-3">
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white ring-2 ring-white/20">
+                    <img src="/GWO.png" alt="" className="h-9 w-9 object-contain" />
+                    <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#0A1240] bg-emerald-400" />
+                  </span>
+                  <div className="min-w-0">
+                    <h2 className="truncate text-sm font-semibold tracking-wide">Gideon's assistant</h2>
+                    <p className="mt-0.5 text-xs text-white/65">Here to help you explore</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-sm">Want a Website or a Graphic Designer</h3>
-                  <p className="text-[10px] text-blue-100">Online • Here to help</p>
+                <div className="flex shrink-0 items-center gap-1">
+                  <button
+                    onClick={resetChat}
+                    className="rounded-full p-2 text-white/75 transition hover:bg-white/10 hover:text-white focus-visible:outline-white"
+                    aria-label="Start a new conversation"
+                    title="New conversation"
+                  >
+                    <FaRedoAlt size={13} />
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="rounded-full p-2 text-white/75 transition hover:bg-white/10 hover:text-white focus-visible:outline-white"
+                    aria-label="Close chat"
+                  >
+                    <FaTimes size={16} />
+                  </button>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
-                aria-label="Close chat"
-              >
-                <FaTimes size={14} />
-              </button>
-            </div>
+              <div className="relative mt-4 flex items-center gap-2 text-[11px] text-white/70">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Ask about projects, skills, or working together
+              </div>
+            </header>
 
-            {/* 3D Avatar */}
-            <div className="h-16 bg-gray-100 dark:bg-gray-900">
-              <LogoAvatar />
-            </div>
-
-            {/* Messages */}
-            <div className="h-56 overflow-y-auto p-3 space-y-3 bg-gray-50 dark:bg-gray-900">
+            <div
+              className="flex-1 space-y-4 overflow-y-auto px-4 py-5"
+              role="log"
+              aria-live="polite"
+              aria-label="Conversation"
+            >
               {messages.map((message, index) => (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
+                  key={`${index}-${message.role}`}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex items-end gap-2 ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div
-                    className={`max-w-[85%] p-2 rounded-xl ${
-                      message.role === "user"
-                        ? "bg-blue-600 text-white rounded-br-sm"
-                        : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-sm shadow"
-                    }`}
-                  >
-                    <p className="text-xs leading-relaxed">{message.text}</p>
+                  {message.role === "bot" && (
+                    <span className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white ring-1 ring-[#0A1240]/10">
+                      <img src="/GWO.png" alt="" className="h-6 w-6 object-contain" />
+                    </span>
+                  )}
+                  <div className={`max-w-[84%] ${message.role === "user" ? "items-end" : "items-start"}`}>
+                    <div
+                      className={`rounded-2xl px-3.5 py-2.5 text-[13px] leading-relaxed ${
+                        message.role === "user"
+                          ? "rounded-br-md bg-[#0A1240] text-white"
+                          : "rounded-bl-md border border-[#0A1240]/[0.06] bg-white text-slate-700 shadow-sm"
+                      }`}
+                    >
+                      {message.text.split("\n\n").map((paragraph, paragraphIndex) => (
+                        <p key={paragraphIndex} className={paragraphIndex ? "mt-2" : ""}>{paragraph}</p>
+                      ))}
+                    </div>
+                    {message.path && (
+                      <Link
+                        to={message.path}
+                        onClick={() => setIsOpen(false)}
+                        className="mt-2 inline-flex items-center gap-1.5 px-1 text-xs font-semibold text-[#b71950] transition hover:text-[#8d113d]"
+                      >
+                        {message.linkText} <FaArrowRight size={10} />
+                      </Link>
+                    )}
+                    {message.suggestions && (
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {message.suggestions.map((prompt) => (
+                          <button
+                            key={prompt}
+                            onClick={() => handleSendMessage(prompt)}
+                            disabled={isTyping}
+                            className="rounded-full border border-[#0A1240]/10 bg-white px-2.5 py-1.5 text-left text-[11px] font-medium text-[#0A1240] transition hover:border-[#b71950]/40 hover:bg-[#fff4f7] disabled:opacity-50"
+                          >
+                            {prompt}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}
+
               {isTyping && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex justify-start"
-                >
-                  <div className="bg-white dark:bg-gray-800 p-2 rounded-xl rounded-bl-sm shadow">
-                    <div className="flex gap-1">
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-100" />
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-200" />
-                    </div>
+                <div className="flex items-end gap-2" aria-label="Assistant is typing">
+                  <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-white ring-1 ring-[#0A1240]/10">
+                    <img src="/GWO.png" alt="" className="h-6 w-6 object-contain" />
+                  </span>
+                  <div className="flex gap-1 rounded-2xl rounded-bl-md bg-white px-3.5 py-3 shadow-sm">
+                    {[0, 1, 2].map((dot) => (
+                      <span
+                        key={dot}
+                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0A1240]/40"
+                        style={{ animationDelay: `${dot * 120}ms` }}
+                      />
+                    ))}
                   </div>
-                </motion.div>
+                </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div className="p-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex gap-2">
+            <form onSubmit={handleSubmit} className="border-t border-[#0A1240]/[0.08] bg-white p-3.5">
+              <div className="flex items-center gap-2 rounded-2xl border border-[#0A1240]/10 bg-[#f8f9fc] p-1.5 pl-3 transition focus-within:border-[#0A1240]/40 focus-within:ring-2 focus-within:ring-[#0A1240]/10">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs"
+                  onChange={(event) => setInputValue(event.target.value)}
+                  placeholder="Ask me anything..."
+                  aria-label="Your message"
+                  className="min-w-0 flex-1 bg-transparent py-2 text-sm text-slate-800 outline-none placeholder:text-slate-400"
                 />
                 <button
-                  onClick={handleSendMessage}
+                  type="submit"
                   disabled={!inputValue.trim() || isTyping}
-                  className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0A1240] text-white transition hover:bg-[#17245f] disabled:cursor-not-allowed disabled:opacity-35"
                   aria-label="Send message"
                 >
-                  <FaPaperPlane size={12} />
+                  <FaPaperPlane size={14} />
                 </button>
               </div>
-            </div>
-          </motion.div>
+              <p className="mt-2 text-center text-[10px] text-slate-400">Portfolio assistant · Replies are based on this site</p>
+            </form>
+          </motion.section>
         )}
       </AnimatePresence>
-    </>
+    </>,
+    document.body
   );
 };
 
