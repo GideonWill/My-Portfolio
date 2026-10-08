@@ -15,6 +15,7 @@ import {
   FaArrowUp,
   FaStar,
 } from "react-icons/fa";
+import TechHeroVisual from "../components/TechHeroVisual";
 
 const Resume = () => {
   useEffect(() => {
@@ -676,20 +677,20 @@ const Resume = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 relative">
+    <div className="portfolio-consistent-page portfolio-resume min-h-screen bg-white dark:bg-gray-900 relative">
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-24 px-4 bg-gray-900 text-white mobile-container">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70 z-10"></div>
-        <div className="absolute inset-0 bg-[url('/images/gid.jpg')] bg-cover bg-center opacity-30"></div>
-        <div className="max-w-7xl mx-auto relative z-20">
+      <section className="portfolio-page-hero relative py-16 sm:py-20 md:py-24 px-4 mobile-container">
+        <TechHeroVisual variant="resume" />
+        <div className="portfolio-shell relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
+            className="portfolio-resume-heading"
           >
+            <p className="portfolio-eyebrow">Resume / Experience</p>
             <motion.h1
-              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight mobile-text-rendering"
+              className="portfolio-page-title text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight mobile-text-rendering"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -697,7 +698,7 @@ const Resume = () => {
               My Resume
             </motion.h1>
             <motion.p
-              className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto mb-2 mobile-text-rendering"
+              className="portfolio-page-lede text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mb-2 mobile-text-rendering"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -705,7 +706,7 @@ const Resume = () => {
               Frontend Developer & UI/UX Designer
             </motion.p>
             <motion.p
-              className="text-lg text-white/80 max-w-3xl mx-auto mb-8"
+              className="portfolio-resume-contact text-lg max-w-3xl mb-8"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}

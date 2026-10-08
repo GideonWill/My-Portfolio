@@ -1,5 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -9,6 +15,30 @@ import Resume from "./pages/Resume";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import ScrollToTop from "./components/ScrollToTop";
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, filter: "blur(8px)", y: 8 }}
+        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+        exit={{ opacity: 0, filter: "blur(8px)", y: -8 }}
+        transition={{ duration: 0.28, ease: "easeOut" }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
 
 // Custom hook to handle orientation changes
 const useOrientationChange = () => {
@@ -81,21 +111,17 @@ function App() {
 
   return (
     <Router>
-      <div className={`bg-gray-50 dark:bg-gray-900 mobile-scroll mobile-text-rendering ${orientation.type}`}>
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/resume" element={<Resume />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-        <Chatbot />
-        <ScrollToTop />
-      </div>
+      <MotionConfig reducedMotion="user">
+        <div className={`bg-gray-50 dark:bg-gray-900 mobile-scroll mobile-text-rendering ${orientation.type}`}>
+          <Navbar />
+          <main>
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+          <Chatbot />
+          <ScrollToTop />
+        </div>
+      </MotionConfig>
     </Router>
   );
 }

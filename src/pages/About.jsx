@@ -8,6 +8,7 @@ import {
   PaintBrushIcon,
   DevicePhoneMobileIcon,
 } from "@heroicons/react/24/outline";
+import TechHeroVisual from "../components/TechHeroVisual";
 
 const About = () => {
   useEffect(() => {
@@ -85,20 +86,17 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="portfolio-consistent-page portfolio-about min-h-screen bg-white dark:bg-gray-900">
       {/* Hero Section with Mission Statement */}
-      <section className="relative h-screen flex items-center justify-center mobile-container">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70 z-10"></div>
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url("/images/dv.jpg")' }}
-        ></div>
-        <div className="relative z-20 text-center px-4 max-w-4xl">
+      <section className="portfolio-page-hero relative flex items-center justify-center mobile-container">
+        <TechHeroVisual variant="about" />
+        <div className="portfolio-shell relative z-10">
+          <p className="portfolio-eyebrow">About / Approach</p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
+            className="portfolio-page-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
           >
             Designing the Future
           </motion.h1>
@@ -106,7 +104,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed mobile-text-rendering"
+            className="portfolio-page-lede text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed mobile-text-rendering"
           >
             Crafting digital experiences that inspire and transform the way
             people interact with technology.
@@ -257,40 +255,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Full-width Image Section with profile picture */}
-      <section className="relative py-16 sm:py-20 md:py-24 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
-          <div className="w-full md:w-1/2 mb-8 sm:mb-12 md:mb-0">
-            <div className="rounded-lg overflow-hidden shadow-2xl">
-              <img src="/profile.jpg" alt="Profile" className="w-full h-auto" />
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 md:pl-8 lg:pl-16">
-            <motion.h2
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 leading-tight"
-            >
-              Turning Ideas Into Reality
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-300 leading-relaxed"
-            >
-              With a focus on user-centered design, I transform complex
-              challenges into elegant solutions. My approach combines aesthetic
-              sensibility with technical expertise to create digital experiences
-              that not only look beautiful but also function seamlessly.
-            </motion.p>
-          </div>
-        </div>
-      </section>
-
       {/* Personal Message Section (inspired by SPINX CEO message) */}
       <section className="py-24 px-4 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-5xl mx-auto bg-white dark:bg-gray-700 rounded-xl shadow-lg p-8 md:p-12">
@@ -404,7 +368,7 @@ const About = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 px-4 bg-blue-600 text-white">
+      <section className="portfolio-about-cta py-24 px-4 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             initial={{ opacity: 0 }}

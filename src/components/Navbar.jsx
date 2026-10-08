@@ -11,20 +11,12 @@ const Navbar = () => {
     if (savedMode !== null) {
       return savedMode === "true";
     }
-    // If no saved preference, check system preference
-    return (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    );
+    return false;
   });
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const isAboutPage = location.pathname === "/about";
-  const isProjectsPage = location.pathname === "/projects";
   const isContactPage = location.pathname === "/contact";
-  const isResumePage = location.pathname === "/resume";
-  const hasDarkHeroSection =
-    isAboutPage || isProjectsPage || isContactPage || isResumePage;
+  const hasDarkHeroSection = false;
   
   // Mobile menu swipe gesture
   const [startX, setStartX] = useState(0);
@@ -121,7 +113,7 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe pl-safe pr-safe mobile-nav ${
         isScrolled
-          ? "bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-lg"
+          ? "bg-white/75 dark:bg-gray-900/75 backdrop-blur-xl shadow-[0_8px_30px_rgba(23,36,58,0.08)] ring-1 ring-white/60 dark:ring-white/10"
           : hasDarkHeroSection
           ? "bg-black/30 backdrop-blur-sm"
           : "bg-transparent"
@@ -185,14 +177,13 @@ const Navbar = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/contact"
-                className={`ml-2 lg:ml-4 px-4 lg:px-6 py-2 lg:py-2.5 font-semibold text-sm leading-tight tracking-wide uppercase transition-all duration-300 inline-flex items-center justify-center ${
+                className={`ml-2 inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-semibold uppercase leading-tight tracking-wide transition-all duration-300 lg:ml-4 lg:px-6 lg:py-2.5 ${
                   isContactPage && !isScrolled
                     ? "bg-blue-500 text-white shadow-lg hover:bg-blue-400"
                     : hasDarkHeroSection && !isScrolled
                     ? "bg-blue-600 text-white hover:bg-blue-500 shadow-md hover:shadow-lg"
                     : "bg-blue-600 text-white hover:bg-blue-500 shadow-md hover:shadow-lg dark:bg-blue-600 dark:hover:bg-blue-500"
                 }`}
-                style={{ borderRadius: "0px" }}
               >
                 Let's Talk
               </Link>
@@ -223,14 +214,14 @@ const Navbar = () => {
             <motion.div whileTap={{ scale: 0.95 }}>
               <Link
                 to="/contact"
-                className={`px-3 py-2 text-xs font-semibold uppercase leading-tight tracking-wide transition-all inline-flex items-center justify-center touch-target ${
+                className={`inline-flex items-center justify-center rounded-md px-3 py-2 text-xs font-semibold uppercase leading-tight tracking-wide transition-all touch-target ${
                   isContactPage && !isScrolled
                     ? "bg-blue-500 text-white hover:bg-blue-400"
                     : hasDarkHeroSection && !isScrolled
                     ? "bg-blue-600 text-white hover:bg-blue-500"
                     : "bg-blue-600 text-white hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-500"
                 }`}
-                style={{ borderRadius: "0px", minHeight: "44px" }}
+                style={{ minHeight: "44px" }}
               >
                 Let's Talk
               </Link>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaEye } from "react-icons/fa";
 import { useEffect, useState, useRef } from "react";
+import TechHeroVisual from "../components/TechHeroVisual";
 
 const projects = [
   // Graphic Design Projects
@@ -324,7 +325,8 @@ const projects = [
       "Professional interior decor company website showcasing elegant design solutions and comprehensive interior decoration services.",
     techStack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
     demoLink: "https://demargointerior.com",
-    image: "/images/demargo.jpg",
+    image: "/images/Demargo Logo.jpg",
+    imageFit: "contain",
     color: "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
     category: "Web Development",
     featured: true,
@@ -336,8 +338,23 @@ const projects = [
       "Modern cleaning services agency website offering professional cleaning solutions with a clean, user-friendly interface.",
     techStack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
     demoLink: "https://amb360cleaning.com",
-    image: "/images/amb360.jpg",
+    image: "/images/amb360 logo.png",
+    imageFit: "contain",
     color: "bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
+  {
+    title: "Rossy's Enterprise Gifts & More",
+    description:
+      "An online storefront for thoughtful gifts and more, designed to make browsing and shopping easy.",
+    techStack: ["E-commerce", "Responsive Design"],
+    demoLink: "https://rossy-s-enterprise.vercel.app/",
+    image: "/images/rossys logo.png",
+    imageFit: "contain",
+    imageBackground: "#fff",
+    color: "bg-white",
     category: "Web Development",
     featured: true,
     hasLiveDemo: true,
@@ -533,6 +550,19 @@ const projects = [
     category: "Web Development",
   },
   {
+    title: "Prive Ghana",
+    description:
+      "A live digital project for Prive Ghana. Visit the website to explore the complete experience.",
+    techStack: ["Web Development", "Responsive Design"],
+    demoLink: "https://priveghana.com",
+    image: "/images/prive.jpeg",
+    imageFit: "contain",
+    color: "bg-slate-50 dark:bg-slate-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
+  {
     title: "Plex Travel & Cargo",
     description:
       "A comprehensive travel and cargo management system with booking capabilities and real-time tracking.",
@@ -552,80 +582,76 @@ const ProjectCard = ({ project, index, onImageClick }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`rounded-lg shadow-lg overflow-hidden border-2 border-yellow-400 dark:border-yellow-500 ${project.color} ${project.featured ? "ring-2 ring-amber-400 dark:ring-amber-300" : ""
-        }`}
+      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-[0_12px_36px_rgba(20,34,57,0.08)] transition-shadow duration-300 hover:shadow-[0_18px_48px_rgba(20,34,57,0.14)] dark:bg-gray-800"
     >
-      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 flex flex-col gap-1 sm:gap-2">
+      <div className="absolute top-3 right-3 z-10 flex flex-col items-end gap-2">
         <span
-          className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-bold 
-          ${isGraphicDesign
-              ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white"
-              : isLogoDesign
-                ? "bg-gradient-to-r from-orange-500 to-red-500 text-white"
-                : isUiDesign
-                  ? "bg-purple-500 text-white"
-                  : "bg-blue-500 text-white"
-            }`}
+          className={`rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-slate-800 shadow-sm backdrop-blur-md dark:bg-gray-900/85 dark:text-white ${isGraphicDesign ? "text-violet-700 dark:text-violet-300" : isLogoDesign ? "text-orange-700 dark:text-orange-300" : isUiDesign ? "text-indigo-700 dark:text-indigo-300" : "text-blue-700 dark:text-blue-300"}`}
         >
           {project.category}
         </span>
         {project.featured && (
-          <span className="px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-bold bg-amber-500 text-white">
+          <span className="rounded-full bg-slate-900/85 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-white backdrop-blur-md dark:bg-white/90 dark:text-slate-900">
             Featured
           </span>
         )}
       </div>
 
       <div
-        className={`relative overflow-hidden cursor-pointer border-2 border-yellow-400 dark:border-yellow-500 touch-target ${isGraphicDesign
-          ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80"
-          : isLogoDesign
-            ? "h-40 xs:h-48 sm:h-56 md:h-64"
-            : isUiDesign
-              ? "h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80"
-              : "h-40 xs:h-48 sm:h-56 md:h-64"
-          }`}
-        onClick={() => onImageClick && onImageClick(project)}
+        className={`projects-card-image relative overflow-hidden bg-slate-100 touch-target dark:bg-gray-700 ${project.image ? "cursor-pointer" : ""}`}
+        onClick={() => project.image && onImageClick && onImageClick(project)}
       >
-        <img
-          src={project.image}
-          alt={project.title}
-          className={`w-full h-full ${isGraphicDesign || isUiDesign || isLogoDesign
-            ? "object-contain bg-white dark:bg-gray-800 p-2"
-            : "object-cover"
-            } transform transition-transform duration-500 hover:scale-105`}
-          loading="lazy"
-          decoding="async"
-          onError={(e) => {
-            e.target.src = '/images/front book cover.jpg';
-            e.target.alt = 'Flyer design placeholder';
-          }}
-        />
-
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className={`h-full w-full ${isGraphicDesign || isUiDesign || isLogoDesign
+              ? "object-contain bg-white p-4 dark:bg-gray-800"
+              : project.imageFit === "contain"
+              ? "object-contain"
+              : "object-cover"
+              } transform transition-[transform,filter] duration-700 group-hover:scale-[1.04] group-hover:blur-[1px]`}
+            style={project.imageBackground ? { backgroundColor: project.imageBackground } : undefined}
+            loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              e.target.src = "/images/front book cover.jpg";
+            }}
+          />
+        ) : (
+          <div className="portfolio-project-image-brand h-full">
+            <span className="portfolio-project-brand">
+              <strong>PRIVE</strong>
+              <span>GHANA / DIGITAL EXPERIENCE</span>
+            </span>
+          </div>
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
 
-      <div className="p-3 sm:p-4 md:p-6">
-        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 leading-tight">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <h3 className="mb-2 text-lg font-semibold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-xl">
           {project.title}
         </h3>
-        <p className="text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300 mb-3 sm:mb-4 leading-relaxed">
+        <p className="mb-5 flex-1 text-sm leading-relaxed text-slate-600 dark:text-gray-300">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+        <div className="mb-5 flex flex-wrap gap-2">
           {project.techStack.map((tech) => (
             <span
               key={tech}
-              className="px-2 py-1 sm:px-3 bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 rounded-full text-xs sm:text-sm font-medium border border-yellow-400 dark:border-yellow-500"
+              className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 dark:bg-gray-700 dark:text-gray-200"
             >
               {tech}
             </span>
           ))}
         </div>
-        <div className="flex flex-wrap gap-2 sm:gap-3 mt-3 sm:mt-4 md:mt-6">
+        <div className="mt-auto flex flex-wrap gap-2">
           {project.githubLink &&
             project.title !== "User Profile and Setting Screens UI" &&
             project.title !== "Smoothie App UI" &&
@@ -634,23 +660,21 @@ const ProjectCard = ({ project, index, onImageClick }) => {
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target"
-                style={{ minHeight: "40px" }}
+                className="inline-flex min-h-10 items-center gap-2 rounded-md bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 touch-target dark:bg-slate-700 dark:hover:bg-blue-600"
               >
                 <FaGithub size={14} />
                 <span>Code</span>
               </a>
             )}
-          {project.hasLiveDemo && (
+          {project.demoLink && (
             <a
               href={project.demoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-md transition-colors bg-green-600 hover:bg-green-700 font-semibold text-xs sm:text-sm border border-yellow-400 dark:border-yellow-500 touch-target"
-              style={{ minHeight: "40px" }}
+              className="inline-flex min-h-10 items-center gap-2 rounded-md bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-800 touch-target dark:bg-blue-600 dark:hover:bg-blue-500"
             >
               <FaExternalLinkAlt size={12} />
-              <span>Live Demo</span>
+              <span>{project.title === "Prive Ghana" ? "Visit Prive Ghana" : "Live Demo"}</span>
             </a>
           )}
         </div>
@@ -662,21 +686,17 @@ const ProjectCard = ({ project, index, onImageClick }) => {
 const visibleProjects = projects.filter((p) => !p.hidden);
 
 const Projects = () => {
-  const [filter, setFilter] = useState("Graphic Design");
-  const filters = ["Graphic Design", "Logo Design", "Web Development", "UI Design"];
-  const [filteredProjects, setFilteredProjects] = useState(visibleProjects);
+  const filters = ["Web Development", "UI Design", "Graphic Design", "Logo Design"];
+  const [filter, setFilter] = useState("Web Development");
+  const filteredProjects = visibleProjects.filter(
+    (project) => project.category === filter
+  );
   const categoriesRef = useRef(null);
   const [startX, setStartX] = useState(0);
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [likedProjects, setLikedProjects] = useState(new Set());
-
-  useEffect(() => {
-    setFilteredProjects(
-      visibleProjects.filter((project) => project.category === filter)
-    );
-  }, [filter]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -758,23 +778,18 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="portfolio-consistent-page portfolio-projects min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <div className="relative bg-black h-64 sm:h-80 md:h-96 flex items-center justify-center overflow-hidden pt-safe mobile-container">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/project-hero.jpg"
-            alt="Projects"
-            className="w-full h-full object-cover opacity-50"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 z-0"></div>
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <div className="portfolio-page-hero relative flex h-64 items-center justify-center overflow-hidden pt-safe mobile-container sm:h-80 md:h-96">
+        <div className="portfolio-projects-glow" />
+        <TechHeroVisual variant="projects" />
+        <div className="portfolio-shell relative z-10 text-left">
+          <p className="portfolio-eyebrow portfolio-projects-eyebrow">Selected work / 2026</p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
+            className="portfolio-page-title text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
           >
             My Projects
           </motion.h1>
@@ -782,17 +797,16 @@ const Projects = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mobile-text-rendering"
+            className="portfolio-page-lede text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mobile-text-rendering"
           >
-            A showcase of my work across web development and UI/UX design. Browse
-            through the projects to see my technical skills and creative
-            approach.
+            A selection of digital products, web experiences, interfaces, and
+            visual design work.
           </motion.p>
         </div>
       </div>
 
       {/* Statistics Section */}
-      <div className="py-8 sm:py-12 bg-gradient-to-r from-pink-50 via-purple-50 to-indigo-50 dark:from-pink-900/20 dark:via-purple-900/20 dark:to-indigo-900/20 mobile-container">
+      <div className="py-8 sm:py-12 bg-slate-50 dark:bg-gray-900 mobile-container">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mobile-spacing">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -802,10 +816,10 @@ const Projects = () => {
             className="text-center mb-8"
           >
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Design Portfolio Statistics
+              A snapshot of my work
             </h2>
             <p className="text-gray-600 dark:text-gray-300">
-              A comprehensive overview of my creative work
+              Browse by discipline to explore projects in detail.
             </p>
           </motion.div>
 
@@ -826,9 +840,9 @@ const Projects = () => {
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-yellow-400 dark:border-yellow-500 cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="text-center p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-xl shadow-[0_8px_28px_rgba(20,34,57,0.07)] hover:shadow-[0_14px_36px_rgba(20,34,57,0.12)] transition-shadow duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
               >
-                <div className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-700 sm:mb-4 sm:h-16 sm:w-16">
                   <span className="text-lg sm:text-2xl font-bold text-white">{stat.value}</span>
                 </div>
                 <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 leading-tight">{stat.label}</h3>
@@ -847,21 +861,15 @@ const Projects = () => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="inline-flex p-1 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg border-2 border-yellow-400 dark:border-yellow-500">
+          <div className="inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl bg-white/80 p-1.5 shadow-[0_8px_28px_rgba(20,34,57,0.07)] backdrop-blur-lg dark:bg-gray-800">
             {filters.map((category, index) => (
               <motion.button
                 key={category}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 ${filter === category
-                  ? category === "Graphic Design"
-                    ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg"
-                    : category === "Logo Design"
-                      ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
-                      : category === "UI Design"
-                        ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg"
-                        : "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
-                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                className={`rounded-md px-3 py-2 text-xs font-medium transition-all duration-300 sm:px-4 md:px-6 md:py-2.5 sm:text-sm ${filter === category
+                  ? "bg-blue-700 text-white shadow-md"
+                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                   }`}
                 onClick={() => {
                   setFilter(category);
@@ -950,16 +958,25 @@ const Projects = () => {
               {/* Main Image/Content Area */}
               <div className="lg:col-span-2">
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                  <div className="aspect-[4/3] sm:aspect-[3/2] bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-4 sm:p-6 md:p-8">
-                    <img
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      className="max-w-full max-h-full object-contain"
-                      onError={(e) => {
-                        e.target.src = '/images/front book cover.jpg';
-                        e.target.alt = 'Design placeholder';
-                      }}
-                    />
+                  <div className="projects-modal-image-frame bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-4 sm:p-6 md:p-8">
+                    {selectedProject.image ? (
+                      <img
+                        src={selectedProject.image}
+                        alt={selectedProject.title}
+                        className="max-h-full max-w-full object-contain"
+                        onError={(e) => {
+                          e.target.src = "/images/front book cover.jpg";
+                          e.target.alt = "Design placeholder";
+                        }}
+                      />
+                    ) : (
+                      <div className="portfolio-project-image-brand flex h-full w-full">
+                        <span className="portfolio-project-brand">
+                          <strong>PRIVE</strong>
+                          <span>GHANA / DIGITAL EXPERIENCE</span>
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -1109,20 +1126,26 @@ const Projects = () => {
                     {visibleProjects.filter(p => p.category === selectedProject.category && p.title !== selectedProject.title).slice(0, 3).map((project) => (
                       <div
                         key={project.title}
-                        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors border border-yellow-400 dark:border-yellow-500"
+                        className="flex cursor-pointer items-center space-x-3 rounded-lg p-2 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
                         onClick={() => {
                           closeModal();
                           openModal(project);
                         }}
                       >
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-12 h-12 rounded-lg object-cover"
-                          onError={(e) => {
-                            e.target.src = '/images/front book cover.jpg';
-                          }}
-                        />
+                        {project.image ? (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="h-12 w-12 rounded-lg object-cover"
+                            onError={(e) => {
+                              e.target.src = "/images/front book cover.jpg";
+                            }}
+                          />
+                        ) : (
+                          <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-900 text-[8px] font-bold tracking-wider text-white">
+                            PRIVE
+                          </span>
+                        )}
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                             {project.title}

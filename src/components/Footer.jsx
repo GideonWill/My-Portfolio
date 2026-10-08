@@ -259,9 +259,8 @@ const Footer = () => {
                     : "text-gray-600 dark:text-gray-300"
                 }`}
               >
-                © {currentYear} Made with
+                © {currentYear}
               </p>
-              <FaHeart className="text-red-500 mx-1" />
               <p
                 className={`transition-colors duration-300 ${
                   isScrolled
@@ -269,7 +268,7 @@ const Footer = () => {
                     : "text-gray-600 dark:text-gray-300"
                 }`}
               >
-                by Gideon William Ogunu
+                by GoldenBoy
               </p>
             </div>
 
