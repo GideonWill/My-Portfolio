@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>resume-hero ambient loop</title>
+  </head>
+  <body>
+    <style>
+      
+  * { box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; margin:0; overflow:hidden; background:#0A1240; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; isolation:isolate; background:#0A1240; }
+  .clip { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; }
+
+      
+      .resume-hero-ambient-glow { position:absolute; width:34%; height:52%; border-radius:50%; filter:blur(100px); opacity:.42; }
+      .resume-hero-glow-wine { left:16%; top:17%; background:radial-gradient(ellipse,rgba(194,30,86,.62),transparent 68%); }
+      .resume-hero-glow-blue { right:13%; bottom:5%; background:radial-gradient(ellipse,rgba(47,91,255,.5),transparent 70%); }
+      .resume-hero-folio { position:absolute; top:50%; left:50%; padding:42px; border:1px solid rgba(233,238,255,.22); border-radius:18px; background:linear-gradient(140deg,rgba(233,238,255,.12),rgba(47,91,255,.04) 54%,rgba(194,30,86,.1)); box-shadow:inset 0 1px rgba(255,255,255,.16),0 35px 100px rgba(0,0,0,.26); backdrop-filter:blur(15px); }
+      .resume-hero-folio i { display:block; height:7px; margin:23px 0; border-radius:8px; background:linear-gradient(90deg,rgba(233,238,255,.62),rgba(233,238,255,.06)); }
+      .resume-hero-folio i:first-child { width:68%; height:46px; margin-top:0; background:linear-gradient(110deg,rgba(194,30,86,.48),rgba(47,91,255,.52)); }
+      .resume-hero-folio i:nth-child(2) { width:90%; }
+      .resume-hero-folio i:nth-child(3) { width:64%; }
+      .resume-hero-folio i:nth-child(4) { width:78%; }
+      .resume-hero-folio-back { width:360px; height:450px; margin:-252px 0 0 -98px; opacity:.34; }
+      .resume-hero-folio-mid { width:390px; height:490px; margin:-226px 0 0 -245px; opacity:.6; }
+      .resume-hero-folio-front { width:400px; height:500px; margin:-250px 0 0 -105px; border-color:rgba(255,77,141,.3); }
+      .resume-hero-orbit-halo { position:absolute; top:50%; left:50%; width:760px; height:760px; margin:-380px 0 0 -380px; border:1px solid rgba(233,238,255,.1); border-radius:50%; box-shadow:0 0 100px rgba(47,91,255,.09); }
+    </style>
+    <div id="root" data-composition-id="resume-hero" data-width="1920" data-height="1080" data-duration="6" data-fps="30">
+      <div id="resume-hero-layer" class="clip" data-start="0" data-duration="6" data-track-index="1">
+        
+      <div class="resume-hero-ambient-glow resume-hero-glow-wine"></div>
+      <div class="resume-hero-ambient-glow resume-hero-glow-blue"></div>
+      <div class="resume-hero-folio resume-hero-folio-back"><i></i><i></i><i></i></div>
+      <div class="resume-hero-folio resume-hero-folio-mid"><i></i><i></i><i></i><i></i></div>
+      <div class="resume-hero-folio resume-hero-folio-front"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="resume-hero-orbit-halo"></div>
+      </div>
+    </div>
+    <script>
+      const HALF = 2.9833333333333334;
+      const CYCLE = 5.966666666666667;
+      const tl = gsap.timeline({ paused: true });
+      
+      tl.to(".resume-hero-folio-back",{x:28,y:-20,rotation:3,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".resume-hero-folio-mid",{x:-26,y:14,rotation:-2,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".resume-hero-folio-front",{x:10,y:22,rotation:1,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".resume-hero-glow-wine",{x:22,y:16,opacity:0.56,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".resume-hero-glow-blue",{x:-20,y:-14,opacity:0.32,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".resume-hero-orbit-halo",{rotation:8,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      window.__timelines["resume-hero"] = tl;
+    </script>
+  </body>
+</html>

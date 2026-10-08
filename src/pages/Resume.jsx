@@ -15,7 +15,7 @@ import {
   FaArrowUp,
   FaStar,
 } from "react-icons/fa";
-import TechHeroVisual from "../components/TechHeroVisual";
+import CinematicHero from "../components/CinematicHero";
 
 const Resume = () => {
   useEffect(() => {
@@ -26,16 +26,21 @@ const Resume = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
+    let animationFrame = 0;
     const handleScroll = () => {
-      if (window.scrollY > 500) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        const shouldShow = window.scrollY > 500;
+        setShowScrollTop((visible) => visible === shouldShow ? visible : shouldShow);
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -678,59 +683,16 @@ const Resume = () => {
 
   return (
     <div className="portfolio-consistent-page portfolio-resume min-h-screen bg-white dark:bg-gray-900 relative">
-      {/* Hero Section */}
-      <section className="portfolio-page-hero relative py-16 sm:py-20 md:py-24 px-4 mobile-container">
-        <TechHeroVisual variant="resume" />
-        <div className="portfolio-shell relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="portfolio-resume-heading"
-          >
-            <p className="portfolio-eyebrow">Resume / Experience</p>
-            <motion.h1
-              className="portfolio-page-title text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight mobile-text-rendering"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              My Resume
-            </motion.h1>
-            <motion.p
-              className="portfolio-page-lede text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mb-2 mobile-text-rendering"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              Frontend Developer & UI/UX Designer
-            </motion.p>
-            <motion.p
-              className="portfolio-resume-contact text-lg max-w-3xl mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              Ablekuma, Accra, Ghana | gideonogunu@gmail.com | 0277811521 /
-              0592678531
-            </motion.p>
-            <motion.a
-              href="/GIDEON WILLIAM OGUNU-CV.pdf"
-              download
-              className="relative inline-flex group items-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-md font-semibold transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-              <FaDownload className="mr-2 relative z-10" />
-              <span className="relative z-10">Download Full CV</span>
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
+      <CinematicHero
+        scene="resume-hero"
+        eyebrow="Resume / Experience"
+        title="My Resume"
+        description="Frontend Developer & UI/UX Designer"
+        metadata="Accra | gideonogunu@gmail.com | 0277811521 / 0592678531"
+        ctaLabel="Download Full CV"
+        href="/GIDEON WILLIAM OGUNU-CV.pdf"
+        download
+      />
 
       {/* Resume Content Section */}
       <section className="py-8 sm:py-12 md:py-16 px-4 bg-gray-50 dark:bg-gray-900 mobile-container">

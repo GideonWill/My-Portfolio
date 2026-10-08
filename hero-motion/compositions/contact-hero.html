@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>contact-hero ambient loop</title>
+  </head>
+  <body>
+    <style>
+      
+  * { box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; margin:0; overflow:hidden; background:#0A1240; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; isolation:isolate; background:#0A1240; }
+  .clip { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; }
+
+      
+      .contact-hero-aurora { position:absolute; border-radius:50%; filter:blur(130px); }
+      .contact-hero-aurora-wine { left:12%; top:18%; width:40%; height:58%; background:radial-gradient(ellipse,rgba(194,30,86,.48),rgba(194,30,86,.06) 56%,transparent 74%); }
+      .contact-hero-aurora-blue { right:8%; top:2%; width:46%; height:66%; background:radial-gradient(ellipse,rgba(47,91,255,.36),rgba(47,91,255,.05) 58%,transparent 76%); }
+      .contact-hero-aurora-veil { left:34%; bottom:2%; width:44%; height:28%; background:radial-gradient(ellipse,rgba(255,77,141,.15),transparent 70%); }
+      .contact-hero-pulse-ring { position:absolute; top:50%; left:50%; border:1px solid rgba(233,238,255,.12); border-radius:50%; }
+      .contact-hero-ring-one { width:570px; height:570px; margin:-285px 0 0 -285px; }
+      .contact-hero-ring-two { width:760px; height:760px; margin:-380px 0 0 -380px; border-color:rgba(255,77,141,.11); }
+    </style>
+    <div id="root" data-composition-id="contact-hero" data-width="1920" data-height="1080" data-duration="6" data-fps="30">
+      <div id="contact-hero-layer" class="clip" data-start="0" data-duration="6" data-track-index="1">
+        
+      <div class="contact-hero-aurora contact-hero-aurora-wine"></div>
+      <div class="contact-hero-aurora contact-hero-aurora-blue"></div>
+      <div class="contact-hero-aurora contact-hero-aurora-veil"></div>
+      <div class="contact-hero-pulse-ring contact-hero-ring-one"></div>
+      <div class="contact-hero-pulse-ring contact-hero-ring-two"></div>
+      </div>
+    </div>
+    <script>
+      const HALF = 2.9833333333333334;
+      const CYCLE = 5.966666666666667;
+      const tl = gsap.timeline({ paused: true });
+      
+      tl.to(".contact-hero-aurora-wine",{x:30,y:18,scale:1.035,opacity:0.72,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".contact-hero-aurora-blue",{x:-26,y:-14,scale:1.03,opacity:0.72,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".contact-hero-aurora-veil",{x:18,y:-12,opacity:0.48,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".contact-hero-ring-one",{scale:1.035,opacity:0.64,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".contact-hero-ring-two",{scale:0.98,opacity:0.6,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      window.__timelines["contact-hero"] = tl;
+    </script>
+  </body>
+</html>

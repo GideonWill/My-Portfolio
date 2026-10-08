@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>services-section ambient loop</title>
+  </head>
+  <body>
+    <style>
+      
+  * { box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; margin:0; overflow:hidden; background:#0A1240; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; isolation:isolate; background:#0A1240; }
+  .clip { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; }
+
+      
+      .services-section-network-glow { position:absolute; width:38%; height:44%; border-radius:50%; filter:blur(105px); opacity:.24; }
+      .services-section-glow-wine { left:5%; top:37%; background:radial-gradient(ellipse,rgba(194,30,86,.65),transparent 70%); }
+      .services-section-glow-blue { right:4%; top:15%; background:radial-gradient(ellipse,rgba(47,91,255,.58),transparent 70%); }
+      .services-section-network { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+      .services-section-wire { fill:none; stroke:rgba(233,238,255,.64); stroke-width:3; stroke-linecap:round; stroke-dasharray:1800; stroke-dashoffset:1800; }
+      .services-section-wire-one { stroke:#FF4D8D; filter:drop-shadow(0 0 12px rgba(255,77,141,.72)); }
+      .services-section-wire-two { stroke:#2F5BFF; filter:drop-shadow(0 0 12px rgba(47,91,255,.75)); }
+      .services-section-wire-three { stroke:rgba(233,238,255,.48); stroke-width:2; }
+      .services-section-network-node { position:absolute; width:18px; height:18px; margin:-9px; border-radius:50%; background:#fff; box-shadow:0 0 0 12px rgba(233,238,255,.08),0 0 34px 12px rgba(255,77,141,.48); }
+      .services-section-node-one { left:17.2%; top:63.9%; }
+      .services-section-node-two { left:49%; top:50%; width:22px; height:22px; margin:-11px; background:#FF4D8D; box-shadow:0 0 0 14px rgba(255,77,141,.1),0 0 42px 14px rgba(255,77,141,.62); }
+      .services-section-node-three { left:82.3%; top:36.1%; background:#2F5BFF; box-shadow:0 0 0 12px rgba(47,91,255,.1),0 0 34px 12px rgba(47,91,255,.55); }
+    </style>
+    <div id="root" data-composition-id="services-section" data-width="1920" data-height="1080" data-duration="6" data-fps="30">
+      <div id="services-section-layer" class="clip" data-start="0" data-duration="6" data-track-index="1">
+        
+      <div class="services-section-network-glow services-section-glow-wine"></div>
+      <div class="services-section-network-glow services-section-glow-blue"></div>
+      <svg class="services-section-network" viewBox="0 0 1920 1080" aria-hidden="true">
+        <path class="services-section-wire services-section-wire-one" d="M330 690 C540 390 710 370 940 540" />
+        <path class="services-section-wire services-section-wire-two" d="M940 540 C1160 710 1330 670 1580 390" />
+        <path class="services-section-wire services-section-wire-three" d="M330 690 C650 840 1240 850 1580 390" />
+      </svg>
+      <i class="services-section-network-node services-section-node-one"></i>
+      <i class="services-section-network-node services-section-node-two"></i>
+      <i class="services-section-network-node services-section-node-three"></i>
+      </div>
+    </div>
+    <script>
+      const HALF = 2.9833333333333334;
+      const CYCLE = 5.966666666666667;
+      const tl = gsap.timeline({ paused: true });
+      
+      tl.fromTo(".services-section-wire",{strokeDashoffset:1800},{strokeDashoffset:0,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".services-section-network-node",{scale:1.28,opacity:0.68,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".services-section-glow-wine",{x:20,y:-10,opacity:0.32,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".services-section-glow-blue",{x:-18,y:14,opacity:0.34,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      window.__timelines["services-section"] = tl;
+    </script>
+  </body>
+</html>

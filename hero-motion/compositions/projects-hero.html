@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>projects-hero ambient loop</title>
+  </head>
+  <body>
+    <style>
+      
+  * { box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; margin:0; overflow:hidden; background:#0A1240; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; isolation:isolate; background:#0A1240; }
+  .clip { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; }
+
+      
+      .projects-hero-glass-card { position:absolute; width:250px; height:310px; padding:34px 28px; border:1px solid rgba(233,238,255,.25); border-radius:22px; background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(47,91,255,.05) 48%,rgba(194,30,86,.1)); box-shadow:inset 0 1px rgba(255,255,255,.14),0 35px 90px rgba(2,8,35,.35); backdrop-filter:blur(14px); }
+      .projects-hero-glass-card i { display:block; height:7px; margin:18px 0; border-radius:9px; background:linear-gradient(90deg,rgba(233,238,255,.55),rgba(233,238,255,.08)); }
+      .projects-hero-glass-card i:first-child { width:70%; height:42px; margin-top:0; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:linear-gradient(115deg,rgba(194,30,86,.66),rgba(47,91,255,.64)); }
+      .projects-hero-glass-card i:nth-child(2) { width:88%; }
+      .projects-hero-glass-card i:nth-child(3) { width:58%; }
+      .projects-hero-glass-card i:nth-child(4) { width:76%; }
+      .projects-hero-card-back { top:14%; left:28%; width:205px; height:260px; opacity:.42; }
+      .projects-hero-card-left { top:30%; left:10%; width:220px; height:280px; opacity:.7; }
+      .projects-hero-card-center { top:13%; left:39%; width:265px; height:330px; border-color:rgba(255,77,141,.34); }
+      .projects-hero-card-right { top:27%; right:10%; width:230px; height:286px; opacity:.74; }
+      .projects-hero-card-front { top:52%; right:28%; width:190px; height:238px; opacity:.5; }
+      .projects-hero-streak { position:absolute; height:2px; transform-origin:left center; border-radius:50%; background:linear-gradient(90deg,transparent,rgba(233,238,255,.85),rgba(255,77,141,.76),transparent); box-shadow:0 0 16px rgba(255,77,141,.34); }
+      .projects-hero-streak-one { top:28%; left:7%; width:34%; }
+      .projects-hero-streak-two { top:69%; right:5%; width:30%; background:linear-gradient(90deg,transparent,rgba(47,91,255,.78),rgba(233,238,255,.62),transparent); }
+      .projects-hero-streak-three { top:83%; left:26%; width:27%; height:1px; opacity:.7; }
+      .projects-hero-floor-glow { position:absolute; left:16%; right:16%; bottom:8%; height:110px; border-radius:50%; background:radial-gradient(ellipse,rgba(47,91,255,.17),transparent 72%); filter:blur(30px); }
+    </style>
+    <div id="root" data-composition-id="projects-hero" data-width="1920" data-height="1080" data-duration="6" data-fps="30">
+      <div id="projects-hero-layer" class="clip" data-start="0" data-duration="6" data-track-index="1">
+        
+      <div class="projects-hero-glass-card projects-hero-card-back"><i></i><i></i><i></i></div>
+      <div class="projects-hero-glass-card projects-hero-card-left"><i></i><i></i><i></i><i></i></div>
+      <div class="projects-hero-glass-card projects-hero-card-center"><i></i><i></i><i></i><i></i></div>
+      <div class="projects-hero-glass-card projects-hero-card-right"><i></i><i></i><i></i></div>
+      <div class="projects-hero-glass-card projects-hero-card-front"><i></i><i></i><i></i></div>
+      <div class="projects-hero-streak projects-hero-streak-one"></div>
+      <div class="projects-hero-streak projects-hero-streak-two"></div>
+      <div class="projects-hero-streak projects-hero-streak-three"></div>
+      <div class="projects-hero-floor-glow"></div>
+      </div>
+    </div>
+    <script>
+      const HALF = 2.9833333333333334;
+      const CYCLE = 5.966666666666667;
+      const tl = gsap.timeline({ paused: true });
+      
+      tl.to(".projects-hero-card-back",{x:-16,y:18,rotation:-2,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-card-left",{x:-24,y:-18,rotation:2,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-card-center",{x:8,y:20,rotation:-1.2,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-card-right",{x:24,y:-15,rotation:1.8,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-card-front",{x:-12,y:-16,rotation:1.2,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-streak-one",{scaleX:0.38,opacity:0.24,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-streak-two",{scaleX:0.42,opacity:0.2,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".projects-hero-streak-three",{scaleX:0.36,opacity:0.16,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      window.__timelines["projects-hero"] = tl;
+    </script>
+  </body>
+</html>

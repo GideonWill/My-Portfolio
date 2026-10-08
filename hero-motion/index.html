@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Portfolio hero loops — review</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing:border-box; }
+      html, body { width:1920px; height:1080px; margin:0; overflow:hidden; background:#0A1240; }
+      #root { position:relative; width:100%; height:100%; overflow:hidden; background:#0A1240; }
+      #root > [data-composition-src] { position:absolute; inset:0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="36" data-width="1920" data-height="1080" data-fps="30">
+    <div
+      id="home-hero"
+      data-composition-id="home-hero"
+      data-composition-src="compositions/home-hero.html"
+      data-start="0"
+      data-duration="6"
+      data-track-index="1"
+      data-width="1920"
+      data-height="1080"
+    ></div>
+    <div
+      id="about-hero"
+      data-composition-id="about-hero"
+      data-composition-src="compositions/about-hero.html"
+      data-start="6"
+      data-duration="6"
+      data-track-index="1"
+      data-width="1920"
+      data-height="1080"
+    ></div>
+    <div
+      id="projects-hero"
+      data-composition-id="projects-hero"
+      data-composition-src="compositions/projects-hero.html"
+      data-start="12"
+      data-duration="6"
+      data-track-index="1"
+      data-width="1920"
+      data-height="1080"
+    ></div>
+    <div
+      id="resume-hero"
+      data-composition-id="resume-hero"
+      data-composition-src="compositions/resume-hero.html"
+      data-start="18"
+      data-duration="6"
+      data-track-index="1"
+      data-width="1920"
+      data-height="1080"
+    ></div>
+    <div
+      id="contact-hero"
+      data-composition-id="contact-hero"
+      data-composition-src="compositions/contact-hero.html"
+      data-start="24"
+      data-duration="6"
+      data-track-index="1"
+      data-width="1920"
+      data-height="1080"
+    ></div>
+    <div
+      id="services-section"
+      data-composition-id="services-section"
+      data-composition-src="compositions/services-section.html"
+      data-start="30"
+      data-duration="6"
+      data-track-index="1"
+      data-width="1920"
+      data-height="1080"
+    ></div>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

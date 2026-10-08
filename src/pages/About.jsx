@@ -8,7 +8,7 @@ import {
   PaintBrushIcon,
   DevicePhoneMobileIcon,
 } from "@heroicons/react/24/outline";
-import TechHeroVisual from "../components/TechHeroVisual";
+import CinematicHero from "../components/CinematicHero";
 
 const About = () => {
   useEffect(() => {
@@ -87,30 +87,14 @@ const About = () => {
 
   return (
     <div className="portfolio-consistent-page portfolio-about min-h-screen bg-white dark:bg-gray-900">
-      {/* Hero Section with Mission Statement */}
-      <section className="portfolio-page-hero relative flex items-center justify-center mobile-container">
-        <TechHeroVisual variant="about" />
-        <div className="portfolio-shell relative z-10">
-          <p className="portfolio-eyebrow">About / Approach</p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="portfolio-page-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
-          >
-            Designing the Future
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="portfolio-page-lede text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed mobile-text-rendering"
-          >
-            Crafting digital experiences that inspire and transform the way
-            people interact with technology.
-          </motion.p>
-        </div>
-      </section>
+      <CinematicHero
+        scene="about-hero"
+        eyebrow="About / Approach"
+        title="Designing the Future"
+        description="Crafting digital experiences that inspire and transform the way people interact with technology."
+        ctaLabel="Explore selected work"
+        to="/projects"
+      />
 
       {/* Key Metrics Section (inspired by SPINX) */}
       <section className="py-8 sm:py-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 mobile-container">

@@ -8,7 +8,7 @@ import {
   FaShoppingCart,
   FaSearch,
 } from "react-icons/fa";
-import TechHeroVisual from "../components/TechHeroVisual";
+import CinematicHero from "../components/CinematicHero";
 
 // No need for EmailJS initialization anymore
 
@@ -145,32 +145,14 @@ const Contact = () => {
 
   return (
     <div className="portfolio-consistent-page portfolio-contact min-h-screen bg-white dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="portfolio-page-hero relative py-16 sm:py-20 md:py-24 px-4 mobile-container">
-        <TechHeroVisual variant="contact" />
-        <div className="portfolio-shell relative z-10 mobile-spacing">
-          <p className="portfolio-eyebrow">Contact / Start a project</p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="portfolio-page-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 md:mb-8 leading-tight mobile-text-rendering"
-          >
-            Let's Create
-            <span className="text-blue-400"> Something Amazing</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="portfolio-page-lede text-sm xs:text-base md:text-xl lg:text-2xl max-w-3xl leading-relaxed mobile-text-rendering"
-          >
-            Transform your ideas into exceptional digital experiences. Whether
-            you need a new website, a redesign, or a complete digital strategy,
-            I'm here to bring your vision to life.
-          </motion.p>
-        </div>
-      </section>
+      <CinematicHero
+        scene="contact-hero"
+        eyebrow="Contact / Start a project"
+        title="Let's Create Something Amazing"
+        description="Transform your ideas into exceptional digital experiences. Whether you need a new website, a redesign, or a complete digital strategy, I'm here to bring your vision to life."
+        ctaLabel="Start a conversation"
+        href="#contact-form"
+      />
 
       {/* Client Recognition Section - REMOVED */}
 

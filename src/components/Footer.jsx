@@ -15,16 +15,30 @@ import emailjs from "@emailjs/browser";
 
 const Footer = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const scrollFrameRef = useRef(0);
+  const isScrolledRef = useRef(false);
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight;
-      const pageHeight = document.documentElement.scrollHeight;
-      setIsScrolled(scrollPosition >= pageHeight - 100);
+      if (scrollFrameRef.current) return;
+      scrollFrameRef.current = window.requestAnimationFrame(() => {
+        scrollFrameRef.current = 0;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const pageHeight = document.documentElement.scrollHeight;
+        const nextValue = scrollPosition >= pageHeight - 100;
+        if (isScrolledRef.current !== nextValue) {
+          isScrolledRef.current = nextValue;
+          setIsScrolled(nextValue);
+        }
+      });
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.cancelAnimationFrame(scrollFrameRef.current);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (

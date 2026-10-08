@@ -4,30 +4,32 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { lazy, Suspense, useState, useEffect } from "react";
+import { MotionConfig, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-import Resume from "./pages/Resume";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import ScrollToTop from "./components/ScrollToTop";
+import MotionEffects from "./components/MotionEffects";
+import { loadRoute } from "./routeLoaders";
+
+const Home = lazy(() => loadRoute("/"));
+const About = lazy(() => loadRoute("/about"));
+const Projects = lazy(() => loadRoute("/projects"));
+const Resume = lazy(() => loadRoute("/resume"));
+const Contact = lazy(() => loadRoute("/contact"));
 
 const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0, filter: "blur(8px)", y: 8 }}
-        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-        exit={{ opacity: 0, filter: "blur(8px)", y: -8 }}
-        transition={{ duration: 0.28, ease: "easeOut" }}
-      >
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.12, ease: "easeOut" }}
+    >
+      <Suspense fallback={<div className="route-loading" aria-label="Loading page" />}>
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -35,8 +37,8 @@ const AnimatedRoutes = () => {
           <Route path="/resume" element={<Resume />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-      </motion.div>
-    </AnimatePresence>
+      </Suspense>
+    </motion.div>
   );
 };
 
@@ -113,6 +115,7 @@ function App() {
     <Router>
       <MotionConfig reducedMotion="user">
         <div className={`bg-gray-50 dark:bg-gray-900 mobile-scroll mobile-text-rendering ${orientation.type}`}>
+          <MotionEffects />
           <Navbar />
           <main>
             <AnimatedRoutes />

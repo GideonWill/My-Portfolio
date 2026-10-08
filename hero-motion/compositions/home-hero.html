@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>home-hero ambient loop</title>
+  </head>
+  <body>
+    <style>
+      
+  * { box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; margin:0; overflow:hidden; background:#0A1240; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; isolation:isolate; background:#0A1240; }
+  .clip { position:absolute; inset:0; width:100%; height:100%; overflow:hidden; }
+
+      
+      .home-hero-aurora { position:absolute; border-radius:50%; filter:blur(110px); mix-blend-mode:screen; }
+      .home-hero-aurora-wine { left:6%; top:19%; width:42%; height:52%; background:radial-gradient(ellipse,rgba(194,30,86,.56),rgba(194,30,86,.08) 54%,transparent 74%); }
+      .home-hero-aurora-blue { right:2%; top:1%; width:50%; height:68%; background:radial-gradient(ellipse,rgba(47,91,255,.40),rgba(47,91,255,.07) 57%,transparent 75%); }
+      .home-hero-aurora-soft { right:26%; bottom:4%; width:42%; height:36%; background:radial-gradient(ellipse,rgba(255,77,141,.20),transparent 68%); }
+      .home-hero-particle-field { position:absolute; inset:3% 2%; }
+      .home-hero-particle { position:absolute; left:var(--x); top:var(--y); width:var(--size); height:var(--size); border-radius:50%; background:rgba(255,255,255,.88); box-shadow:0 0 12px rgba(233,238,255,.75); opacity:.76; }
+      .home-hero-horizon-glow { position:absolute; right:8%; bottom:14%; width:47%; height:1px; background:linear-gradient(90deg,transparent,rgba(233,238,255,.24),rgba(255,77,141,.42),transparent); filter:blur(2px); }
+    </style>
+    <div id="root" data-composition-id="home-hero" data-width="1920" data-height="1080" data-duration="6" data-fps="30">
+      <div id="home-hero-layer" class="clip" data-start="0" data-duration="6" data-track-index="1">
+        
+      <div class="home-hero-aurora home-hero-aurora-wine"></div>
+      <div class="home-hero-aurora home-hero-aurora-blue"></div>
+      <div class="home-hero-aurora home-hero-aurora-soft"></div>
+      <div class="home-hero-particle-field"><i class="home-hero-particle" style="--x:8%;--y:18%;--size:3px"></i><i class="home-hero-particle" style="--x:15%;--y:72%;--size:2px"></i><i class="home-hero-particle" style="--x:21%;--y:34%;--size:3px"></i><i class="home-hero-particle" style="--x:29%;--y:84%;--size:2px"></i><i class="home-hero-particle" style="--x:36%;--y:22%;--size:2px"></i><i class="home-hero-particle" style="--x:43%;--y:58%;--size:3px"></i><i class="home-hero-particle" style="--x:51%;--y:13%;--size:2px"></i><i class="home-hero-particle" style="--x:57%;--y:91%;--size:3px"></i><i class="home-hero-particle" style="--x:64%;--y:39%;--size:2px"></i><i class="home-hero-particle" style="--x:69%;--y:77%;--size:3px"></i><i class="home-hero-particle" style="--x:76%;--y:24%;--size:2px"></i><i class="home-hero-particle" style="--x:82%;--y:61%;--size:3px"></i><i class="home-hero-particle" style="--x:89%;--y:32%;--size:2px"></i><i class="home-hero-particle" style="--x:94%;--y:82%;--size:3px"></i><i class="home-hero-particle" style="--x:12%;--y:46%;--size:2px"></i><i class="home-hero-particle" style="--x:32%;--y:49%;--size:3px"></i><i class="home-hero-particle" style="--x:47%;--y:81%;--size:2px"></i><i class="home-hero-particle" style="--x:73%;--y:53%;--size:2px"></i><i class="home-hero-particle" style="--x:86%;--y:12%;--size:3px"></i><i class="home-hero-particle" style="--x:55%;--y:29%;--size:2px"></i></div>
+      <div class="home-hero-horizon-glow"></div>
+      </div>
+    </div>
+    <script>
+      const HALF = 2.9833333333333334;
+      const CYCLE = 5.966666666666667;
+      const tl = gsap.timeline({ paused: true });
+      
+      tl.to(".home-hero-aurora-wine",{x:82,y:-30,scale:1.06,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".home-hero-aurora-blue",{x:-74,y:32,scale:1.04,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".home-hero-aurora-soft",{x:36,y:-22,opacity:0.62,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".home-hero-particle-field",{x:24,y:-18,duration:HALF,ease:"sine.inOut",yoyo:true,repeat:1},0);
+      tl.to(".home-hero-particle",{opacity:0.32,duration:HALF/2,ease:"sine.inOut",yoyo:true,repeat:3},0);
+      window.__timelines["home-hero"] = tl;
+    </script>
+  </body>
+</html>

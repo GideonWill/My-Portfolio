@@ -1,9 +1,34 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaEye } from "react-icons/fa";
 import { useEffect, useState, useRef } from "react";
-import TechHeroVisual from "../components/TechHeroVisual";
+import CinematicHero from "../components/CinematicHero";
 
 const projects = [
+  {
+    title: "Prive Ghana",
+    description:
+      "A live digital project for Prive Ghana. Visit the website to explore the complete experience.",
+    techStack: ["Web Development", "Responsive Design"],
+    demoLink: "https://priveghana.com",
+    image: "/images/prive.jpeg",
+    imageFit: "contain",
+    color: "bg-slate-50 dark:bg-slate-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
+  {
+    title: "ENA Ointing Ltd",
+    description:
+      "A Ghanaian technology company website presenting custom software, web and mobile apps, cloud, and AI solutions.",
+    techStack: ["Web Development", "Responsive Design", "Digital Products"],
+    demoLink: "https://www.enaointingltd.com/",
+    image: "/images/enaointingltd-hero.jpg",
+    color: "bg-emerald-50 dark:bg-emerald-900/20",
+    category: "Web Development",
+    featured: true,
+    hasLiveDemo: true,
+  },
   // Graphic Design Projects
   {
     title: "Goldbites Cakes Flyer",
@@ -377,6 +402,7 @@ const projects = [
     techStack: ["React", "Node.js", "MongoDB", "Express"],
     githubLink: "https://github.com/GideonWill/LetsBuy",
     demoLink: "https://letsbuy-demo.com",
+    showLiveDemo: false,
     image: "/images/let'sbuy.jpg",
     color: "bg-blue-50 dark:bg-blue-900/20",
     category: "Web Development",
@@ -389,6 +415,7 @@ const projects = [
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand"],
     githubLink: "https://github.com/GhOsCoDeR/HopAndShop_main.git",
     demoLink: "https://hopandshop-demo.com",
+    showLiveDemo: false,
     image: "/images/hopandshop.jpg",
     color: "bg-red-50 dark:bg-red-900/20",
     category: "Web Development",
@@ -473,6 +500,7 @@ const projects = [
     techStack: ["PHP", "MySQL", "JavaScript"],
     githubLink: "https://github.com/GideonWill/MCH.git",
     demoLink: "https://hospital-demo.com",
+    showLiveDemo: false,
     image: "/images/mch.jpg",
     color: "bg-green-50 dark:bg-green-900/20",
     category: "Web Development",
@@ -545,22 +573,10 @@ const projects = [
     techStack: ["React", "Node.js", "PostgreSQL"],
     githubLink: "https://github.com/GideonWill/rakofoods",
     demoLink: "https://rakofoods.netlify.app/",
+    showLiveDemo: false,
     image: "/images/rako.jpg",
     color: "bg-orange-50 dark:bg-orange-900/20",
     category: "Web Development",
-  },
-  {
-    title: "Prive Ghana",
-    description:
-      "A live digital project for Prive Ghana. Visit the website to explore the complete experience.",
-    techStack: ["Web Development", "Responsive Design"],
-    demoLink: "https://priveghana.com",
-    image: "/images/prive.jpeg",
-    imageFit: "contain",
-    color: "bg-slate-50 dark:bg-slate-900/20",
-    category: "Web Development",
-    featured: true,
-    hasLiveDemo: true,
   },
   {
     title: "Plex Travel & Cargo",
@@ -569,6 +585,7 @@ const projects = [
     techStack: ["React", "Node.js", "Tailwind CSS", "Express"],
     githubLink: "https://github.com/GideonWill/Travel-and-Tour-.git",
     demoLink: "https://plextravelandcargo.netlify.app/",
+    showLiveDemo: false,
     image: "/images/t6.jpg",
     color: "bg-cyan-50 dark:bg-cyan-900/20",
     category: "Web Development",
@@ -582,8 +599,8 @@ const ProjectCard = ({ project, index, onImageClick }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -5 }}
@@ -666,7 +683,7 @@ const ProjectCard = ({ project, index, onImageClick }) => {
                 <span>Code</span>
               </a>
             )}
-          {project.demoLink && (
+          {project.demoLink && project.showLiveDemo !== false && (
             <a
               href={project.demoLink}
               target="_blank"
@@ -779,31 +796,14 @@ const Projects = () => {
 
   return (
     <div className="portfolio-consistent-page portfolio-projects min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <div className="portfolio-page-hero relative flex h-64 items-center justify-center overflow-hidden pt-safe mobile-container sm:h-80 md:h-96">
-        <div className="portfolio-projects-glow" />
-        <TechHeroVisual variant="projects" />
-        <div className="portfolio-shell relative z-10 text-left">
-          <p className="portfolio-eyebrow portfolio-projects-eyebrow">Selected work / 2026</p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="portfolio-page-title text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight mobile-text-rendering"
-          >
-            My Projects
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="portfolio-page-lede text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mobile-text-rendering"
-          >
-            A selection of digital products, web experiences, interfaces, and
-            visual design work.
-          </motion.p>
-        </div>
-      </div>
+      <CinematicHero
+        scene="projects-hero"
+        eyebrow="Selected work / 2026"
+        title="My Projects"
+        description="A selection of digital products, web experiences, interfaces, and visual design work."
+        ctaLabel="Browse selected projects"
+        href="#projects-catalog"
+      />
 
       {/* Statistics Section */}
       <div className="py-8 sm:py-12 bg-slate-50 dark:bg-gray-900 mobile-container">
@@ -853,7 +853,10 @@ const Projects = () => {
       </div>
 
       {/* Projects Section with Filter */}
-      <div className="py-10 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div
+        id="projects-catalog"
+        className="py-10 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
         {/* Category Filter */}
         <div
           ref={categoriesRef}
@@ -1086,7 +1089,8 @@ const Projects = () => {
                         <span>View Code</span>
                       </a>
                     )}
-                    {selectedProject.demoLink && (
+                    {selectedProject.demoLink &&
+                      selectedProject.showLiveDemo !== false && (
                       <a
                         href={selectedProject.demoLink}
                         target="_blank"

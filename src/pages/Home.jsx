@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaArrowRight, FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import HeroBackdrop from "../components/HeroBackdrop";
 
 const featuredProjects = [
   {
@@ -11,6 +12,16 @@ const featuredProjects = [
     image: "/images/prive.jpeg",
     imageFit: "contain",
     href: "https://priveghana.com",
+    showVisitLink: true,
+  },
+  {
+    title: "ENA Ointing Ltd",
+    type: "Web development",
+    description:
+      "A technology company website presenting custom software, web and mobile apps, cloud, and AI solutions.",
+    image: "/images/enaointingltd-hero.jpg",
+    href: "https://www.enaointingltd.com/",
+    showVisitLink: true,
   },
   {
     title: "Demargo Interior Contractors",
@@ -39,6 +50,7 @@ const featuredProjects = [
     imageFit: "contain",
     imageBackground: "#fff",
     href: "https://rossy-s-enterprise.vercel.app/",
+    showVisitLink: true,
   },
 ];
 
@@ -54,11 +66,10 @@ const capabilities = [
 ];
 
 const reveal = {
-  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 };
@@ -66,6 +77,7 @@ const reveal = {
 const Home = () => (
   <div className="portfolio-home">
     <section className="portfolio-hero">
+      <HeroBackdrop scene="home-hero" />
       <div className="portfolio-shell portfolio-hero-layout">
         <motion.div
           className="portfolio-hero-copy"
@@ -120,8 +132,8 @@ const Home = () => (
 
         <motion.div
           className="portfolio-portrait-wrap"
-          initial={{ opacity: 0, scale: 0.96, filter: "blur(12px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="portfolio-portrait-glow" />
@@ -149,15 +161,24 @@ const Home = () => (
         viewport={{ once: true, amount: 0.35 }}
         variants={reveal}
       >
-        <p className="portfolio-eyebrow">A considered approach</p>
-        <h2>
-          Good technology should feel <em>effortless.</em>
-        </h2>
-        <p>
-          From the first sketch to the finished product, I bring design and
-          engineering together to make digital experiences useful, intuitive,
-          and ready to grow.
-        </p>
+        <div className="portfolio-intro-visual">
+          <img
+            src="/images/website%20laptop.png"
+            alt="Laptop and mobile devices displaying a professional website"
+            loading="lazy"
+          />
+        </div>
+        <div className="portfolio-intro-copy">
+          <p className="portfolio-eyebrow">A considered approach</p>
+          <h2>
+            Good technology should feel <em>effortless.</em>
+          </h2>
+          <p>
+            From the first sketch to the finished product, I bring design and
+            engineering together to make digital experiences useful, intuitive,
+            and ready to grow.
+          </p>
+        </div>
       </motion.div>
     </section>
 
@@ -232,8 +253,7 @@ const Home = () => (
                 <p className="portfolio-eyebrow">{project.type}</p>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
-                {project.title === "Prive Ghana" ||
-                project.title === "Rossy's Enterprise Gifts & More" ? (
+                {project.showVisitLink ? (
                   <a
                     className="portfolio-project-visit"
                     href={project.href}
@@ -245,33 +265,6 @@ const Home = () => (
                 ) : null}
               </div>
             </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section className="portfolio-capabilities-section">
-      <div className="portfolio-shell portfolio-capabilities">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-        >
-          <p className="portfolio-eyebrow">What I bring</p>
-          <h2>Design sensibility.<br />Engineering mindset.</h2>
-        </motion.div>
-        <div className="portfolio-capability-list">
-          {capabilities.map((capability, index) => (
-            <motion.span
-              key={capability}
-              initial={{ opacity: 0, y: 12, filter: "blur(5px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: index * 0.05 }}
-            >
-              {capability}
-            </motion.span>
           ))}
         </div>
       </div>
