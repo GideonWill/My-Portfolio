@@ -11,6 +11,7 @@ import {
   FaMapMarkerAlt,
   FaHeart,
 } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
 import emailjs from "@emailjs/browser";
 
 const Footer = () => {
@@ -248,6 +249,21 @@ const Footer = () => {
                 >
                   <FaInstagram size={22} />
                 </motion.a>
+                <motion.a
+                  href="https://www.tiktok.com/@yung_khlyve?"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className={`transition-colors duration-300 ${
+                    isScrolled
+                      ? "text-white/90 hover:text-white"
+                      : "text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                  }`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaTiktok size={22} />
+                </motion.a>
               </div>
             </div>
           </motion.div>
@@ -328,6 +344,21 @@ const Footer = () => {
                 whileTap={{ scale: 0.9 }}
               >
                 <FaInstagram size={24} />
+              </motion.a>
+              <motion.a
+                href="https://www.tiktok.com/@yung_khlyve?"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className={`transition-colors duration-300 ${
+                  isScrolled
+                    ? "text-white/90 hover:text-white"
+                    : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaTiktok size={24} />
               </motion.a>
             </div>
           </div>
