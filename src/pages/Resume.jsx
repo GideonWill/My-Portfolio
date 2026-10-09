@@ -11,7 +11,6 @@ import {
   FaLaptopCode,
   FaServer,
   FaGithub,
-  FaUserTie,
   FaArrowUp,
   FaStar,
 } from "react-icons/fa";
@@ -22,7 +21,7 @@ const Resume = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [activeTab, setActiveTab] = useState("summary");
+  const [activeTab, setActiveTab] = useState("experience");
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -51,7 +50,6 @@ const Resume = () => {
   };
 
   const tabs = [
-    { id: "summary", label: "Summary" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
     { id: "skills", label: "Skills" },
@@ -71,12 +69,26 @@ const Resume = () => {
     },
   ];
 
-  // Summary content
-  const summary =
-    "Passionate Frontend Developer with experience in UI/UX design, React, and TypeScript. Successfully developed and contributed to multiple projects, including eCommerce, agriculture, and healthcare websites. Strong foundation in Linux/Unix environments, open-source contributions, and automation scripting.";
-
   // Work experience data
   const experience = [
+    {
+      id: 3,
+      role: "IT Head",
+      company: "Demargo Interior Contractors",
+      location: "",
+      duration: "September 2025 – Present",
+      description: "Leading IT operations at Demargo Interior Contractors.",
+      achievements: [],
+    },
+    {
+      id: 4,
+      role: "IT Support",
+      company: "Mother and Child Hospital",
+      location: "",
+      duration: "October 2024 – October 2025",
+      description: "Provided IT support at Mother and Child Hospital.",
+      achievements: [],
+    },
     {
       id: 1,
       role: "UI Designer",
@@ -234,30 +246,6 @@ const Resume = () => {
 
   // Filter content based on active tab
   const renderContent = () => {
-    // Summary Section
-    if (activeTab === "summary") {
-      return (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className={`${
-            activeTab !== "summary" ? "hidden" : ""
-          }`}
-        >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-            <FaUserTie className="mr-2 text-blue-600 dark:text-blue-400" />
-            Professional Summary
-          </h2>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-              {summary}
-            </p>
-          </div>
-        </motion.div>
-      );
-    }
-
     // Experience Section
     if (activeTab === "experience") {
       return (
@@ -294,30 +282,34 @@ const Resume = () => {
                     {exp.duration}
                   </span>
                 </div>
-                <span className="block text-gray-500 dark:text-gray-500 text-sm mb-3">
-                  {exp.location}
-                </span>
+                {exp.location && (
+                  <span className="block text-gray-500 dark:text-gray-500 text-sm mb-3">
+                    {exp.location}
+                  </span>
+                )}
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
                   {exp.description}
                 </p>
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    Key Responsibilities:
-                  </h4>
-                  <ul className="space-y-1">
-                    {exp.achievements.map((achievement, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <FaCheckCircle
-                          className="text-green-500 dark:text-green-400 mt-1 mr-2 flex-shrink-0"
-                          size={14}
-                        />
-                        <span className="text-gray-700 dark:text-gray-300 text-sm">
-                          {achievement}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {exp.achievements.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                      Key Responsibilities:
+                    </h4>
+                    <ul className="space-y-1">
+                      {exp.achievements.map((achievement, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <FaCheckCircle
+                            className="text-green-500 dark:text-green-400 mt-1 mr-2 flex-shrink-0"
+                            size={14}
+                          />
+                          <span className="text-gray-700 dark:text-gray-300 text-sm">
+                            {achievement}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>

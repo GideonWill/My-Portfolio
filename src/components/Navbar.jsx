@@ -1,19 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { loadRoute } from "../routeLoaders";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(() => {
-    // Check localStorage first
-    const savedMode = localStorage.getItem("darkMode");
-    if (savedMode !== null) {
-      return savedMode === "true";
-    }
-    return false;
-  });
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const isContactPage = location.pathname === "/contact";
@@ -24,15 +15,6 @@ const Navbar = () => {
   // Mobile menu swipe gesture
   const [startX, setStartX] = useState(0);
   const mobileMenuRef = useRef(null);
-
-  // Initialize dark mode on first load
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,18 +60,6 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    localStorage.setItem("darkMode", newMode.toString());
-
-    if (newMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-  
   // Handle mobile menu swipe with improved detection
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
@@ -211,23 +181,6 @@ const Navbar = () => {
               </Link>
             </motion.div>
 
-            <button
-              onClick={toggleDarkMode}
-              className={`p-2 rounded-lg transition-colors ${
-                hasDarkHeroSection && !isScrolled
-                  ? "bg-gray-800/40 text-white hover:bg-gray-800/60"
-                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-              }`}
-              aria-label={
-                darkMode ? "Switch to light mode" : "Switch to dark mode"
-              }
-            >
-              {darkMode ? (
-                <SunIcon className="h-5 w-5" aria-hidden="true" />
-              ) : (
-                <MoonIcon className="h-5 w-5" aria-hidden="true" />
-              )}
-            </button>
           </div>
 
           {/* Mobile Navigation Button */}
@@ -336,23 +289,6 @@ const Navbar = () => {
             >
               Contact
             </NavLink>
-          </div>
-          <div className="px-4 pb-6 border-t border-gray-200 dark:border-gray-700">
-            <button
-              onClick={toggleDarkMode}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg touch-target"
-              style={{ minHeight: "48px" }}
-              aria-label={
-                darkMode ? "Switch to light mode" : "Switch to dark mode"
-              }
-            >
-              {darkMode ? (
-                <SunIcon className="h-5 w-5" aria-hidden="true" />
-              ) : (
-                <MoonIcon className="h-5 w-5" aria-hidden="true" />
-              )}
-              <span>Switch to {darkMode ? "Light" : "Dark"} Mode</span>
-            </button>
           </div>
         </motion.div>
       )}
